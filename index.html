@@ -357,7 +357,7 @@
     </section>
 
     <!-- 2. The Story Section (Liquid Glass) -->
-    <section id="story" class="story-sec relative py-20 md:py-28 px-6 overflow-x-clip">
+    <section id="story" class="story-sec relative py-10 md:py-28 px-6 overflow-x-clip">
         <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-14 md:gap-16 items-center">
 
             <!-- CỘT TRÁI -->
@@ -506,7 +506,7 @@
     </section>
 
     <!-- 3. Features Section (Liquid Glass Bento) -->
-<section id="features" class="fx-sec relative z-10 py-20 md:py-28 px-6">
+<section id="features" class="fx-sec relative z-10 py-10 md:py-28 px-6">
     <div class="max-w-6xl mx-auto">
 
         <div class="fx-head" data-aos="fade-up">
@@ -604,215 +604,201 @@
 </section>
 
     <!-- 4. Interactive Demo -->
-    <section id="demo" class="py-24 px-4 md:px-6 relative z-10">
-        <div class="max-w-5xl mx-auto" data-aos="zoom-in-up">
-            <div class="text-center mb-10">
-                <h2 class="text-3xl md:text-5xl font-black text-slate-900 mb-4" data-i18n="demo_title">Trải nghiệm Mini Demo</h2>
-                <p class="text-slate-600 font-medium text-lg" data-i18n="demo_subtitle">Giao diện thực tế được thu nhỏ. Hãy thử thêm một hoạt động mới!</p>
-            </div>
+    <!-- 4. Interactive Demo (Liquid Glass) -->
+<section id="demo" class="dm-sec relative z-10 py-10 md:py-28 px-4 md:px-6">
+    <div class="dm-aurora" aria-hidden="true"><i></i><i></i></div>
 
-            <!-- Khung Mockup Thiết bị-->
-            <div class="glass-panel border-4 border-slate-100 rounded-[2rem] md:rounded-[3rem] p-2 shadow-2xl relative overflow-hidden bg-white/40">
-                
-                <!-- App UI Inside  -->
-                <div class="bg-slate-50 rounded-[1.5rem] md:rounded-[2.5rem] w-full h-[650px] border border-slate-200 overflow-hidden flex flex-col relative shadow-inner">
-                    
-                    <!-- Khung nội dung cuộn -->
-                    <div class="flex-1 overflow-y-auto hide-scrollbar relative flex flex-col" id="demo-main-scroll">
-                        
-                        <!-- 1. Trip Header -->
-                        <div class="relative h-56 md:h-72 w-full bg-slate-300 flex-shrink-0 overflow-hidden group">
-                            <img src="https://images.unsplash.com/photo-1563492065599-3520f775eeed?auto=format&fit=crop&w=1200&q=80" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Cover">
-                            <div class="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/20 to-transparent z-0"></div>
-                            
-                            <!-- Tiêu đề & Ngân sách -->
-                            <div class="absolute bottom-6 left-4 md:left-8 z-20">
-                                <h2 class="text-3xl md:text-4xl font-black text-white drop-shadow-md tracking-tight leading-tight mb-3">Bangkok - Thái Lan</h2>
-                                <div class="inline-flex items-center gap-2 px-4 py-2 bg-slate-900/60 backdrop-blur-md rounded-xl border border-white/20 shadow-lg">
-                                    <div class="w-6 h-6 rounded-full bg-emerald-500/20 flex items-center justify-center text-emerald-400 text-xs">
-                                        <i class="fa-solid fa-wallet"></i>
-                                    </div>
-                                    <span class="text-white font-bold text-sm tracking-wide">2.000.000 VND</span>
-                                </div>
-                            </div>
-                        </div>
+    <div class="max-w-5xl mx-auto relative" data-aos="zoom-in-up">
+        <div class="dm-head">
+            <p class="story-eyebrow" data-i18n="demo_eyebrow">Dùng thử</p>
+            <h2 class="story-h2 !mb-3" data-i18n="demo_title">Trải nghiệm Mini Demo</h2>
+            <p class="dm-sub" data-i18n="demo_subtitle">Giao diện thực tế được thu nhỏ. Hãy thử thêm một hoạt động mới!</p>
+        </div>
 
-                       <!-- 2. Days Tabs -->
-                        <div class="bg-white px-4 py-4 border-b border-slate-100 sticky top-0 z-10 shadow-sm">
-                            <div class="flex items-center gap-2">
-                                <div id="demo-days-container" class="flex overflow-x-auto hide-scrollbar gap-3 pb-1 flex-1 cursor-grab select-none">
-                                    <!-- Tab Ngày 1 (Active) -->
-                                    <button onclick="switchDemoDay(1)" id="demo-tab-1" class="demo-tab-btn flex-shrink-0 px-4 py-2.5 bg-slate-900 text-white rounded-2xl shadow-lg shadow-slate-900/20 border border-slate-800 flex flex-col items-center justify-center min-w-[80px] transition-transform active:scale-95">
-                                        <span class="text-[10px] font-black uppercase tracking-widest text-slate-300">Ngày 1</span>
-                                        <span class="text-sm font-bold mt-0.5">28/09</span>
-                                    </button>
-                                    <!-- Tab Ngày 2 (Inactive) -->
-                                    <button onclick="switchDemoDay(2)" id="demo-tab-2" class="demo-tab-btn flex-shrink-0 px-4 py-2.5 bg-white text-slate-500 hover:bg-slate-50 hover:text-slate-800 rounded-2xl border border-slate-200 flex flex-col items-center justify-center min-w-[80px] transition-colors">
-                                        <span class="text-[10px] font-black uppercase tracking-widest">Ngày 2</span>
-                                        <span class="text-sm font-bold mt-0.5">29/09</span>
-                                    </button>
-                                    <!-- Tab Ngày 3 (Inactive) -->
-                                    <button onclick="switchDemoDay(3)" id="demo-tab-3" class="demo-tab-btn flex-shrink-0 px-4 py-2.5 bg-white text-slate-500 hover:bg-slate-50 hover:text-slate-800 rounded-2xl border border-slate-200 flex flex-col items-center justify-center min-w-[80px] transition-colors">
-                                        <span class="text-[10px] font-black uppercase tracking-widest">Ngày 3</span>
-                                        <span class="text-sm font-bold mt-0.5">30/09</span>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Toast Notification -->
-                        <div id="demo-toast" class="absolute top-4 left-1/2 -translate-x-1/2 z-50 bg-slate-900/90 backdrop-blur-md text-white px-5 py-3 rounded-full shadow-2xl flex items-center gap-3 text-xs font-bold transition-colors duration-300 transform -translate-y-20 opacity-0 pointer-events-none whitespace-nowrap">
-                            <i class="fa-solid fa-circle-info text-blue-400"></i>
-                            <span id="demo-toast-text">Tính năng nằm trong bản đầy đủ!</span>
-                        </div>
+        <!-- Khung thiết bị kính -->
+        <div class="dm-device" id="dm-device">
 
-                        <!-- 3. Timeline Container -->
-                        <div class="p-4 md:p-6 flex-1 bg-slate-50 relative pb-24">
-                            <div id="demo-activities" class="space-y-0 relative before:absolute before:inset-y-0 before:left-[19px] before:w-[2px] before:bg-slate-200">
-                                
-                                <!-- Card 1 -->
-                                <div class="relative pl-12 pb-6 group">
-                                    <div class="absolute left-0 top-1 w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center text-blue-500 font-black z-10 ring-4 ring-slate-50 text-sm shadow-sm transition-transform group-hover:scale-110">
-                                        <i class="fa-solid fa-plane"></i>
-                                    </div>
-                                    <div class="bg-white p-4 rounded-2xl border border-slate-100 shadow-sm flex flex-col hover:border-blue-200 hover:shadow-md transition-colors cursor-pointer">
-                                        <div class="flex justify-between items-start gap-4">
-                                            <span class="font-bold text-slate-800 text-sm md:text-base">Hạ cánh tại Suvarnabhumi</span>
-                                            <span class="px-2 py-1 bg-slate-100 text-slate-500 rounded-lg text-[10px] font-black whitespace-nowrap">Di chuyển</span>
-                                        </div>
-                                        <span class="text-xs font-bold text-slate-400 mt-2 flex items-center gap-1"><i class="fa-regular fa-clock"></i> 08:00 - 09:30</span>
-                                    </div>
-                                </div>
+            <!-- App UI Inside -->
+            <div class="dm-screen w-full h-[650px] overflow-hidden flex flex-col relative">
+                <span class="dm-glare" aria-hidden="true"></span>
 
+                <!-- Khung nội dung cuộn -->
+                <div class="flex-1 overflow-y-auto hide-scrollbar relative flex flex-col" id="demo-main-scroll">
+
+                    <!-- 1. Trip Header -->
+                    <div class="dm-cover relative h-56 md:h-72 w-full flex-shrink-0 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1563492065599-3520f775eeed?auto=format&fit=crop&w=1200&q=80" class="dm-cover-img absolute inset-0 w-full h-full object-cover" alt="Cover">
+                        <div class="dm-cover-shade absolute inset-0 z-0"></div>
+                        <div class="dm-shine" aria-hidden="true"></div>
+
+                        <div class="absolute bottom-6 left-4 md:left-8 z-20">
+                            <h2 class="text-3xl md:text-4xl font-semibold text-white tracking-tight leading-tight mb-3" style="text-shadow:0 2px 14px rgba(15,23,42,.45)">Bangkok - Thái Lan</h2>
+                            <div class="dm-budget">
+                                <span class="dm-budget-ic"><i class="fa-solid fa-wallet"></i></span>
+                                <span>2.000.000 VND</span>
                             </div>
                         </div>
                     </div>
 
-                    <!-- 4. Action Bar -->
-                    <div class="p-3 md:p-4 bg-white/75 backdrop-blur-md border-t border-slate-200/50 absolute bottom-0 left-0 right-0 z-20 flex gap-2 shadow-[0_-10px_20px_rgba(0,0,0,0.03)]">
-                        <!-- Toàn cảnh -->
-                        <button onclick="openDemoOverview()" class="flex-1 py-3 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-xl text-xs md:text-sm transition-colors hidden md:block">
-                            <i class="fa-solid fa-calendar-days mr-1"></i> Toàn cảnh
-                        </button>
-                        <!-- Tạo nhiều -->
-                        <button onclick="openDemoBulk()" class="flex-1 py-3 bg-blue-50 text-blue-600 hover:bg-blue-100 border border-blue-100 font-bold rounded-xl text-xs md:text-sm transition-colors">
-                            <i class="fa-solid fa-layer-group mr-1"></i> Tạo nhiều
-                        </button>
-                        <!-- Nút Thêm HĐ -->
-                        <button onclick="openDemoModal()" class="flex-[1.5] py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl text-xs md:text-sm shadow-lg shadow-blue-200 transition-transform active:scale-95">
-                            <i class="fa-solid fa-plus mr-1"></i> Thêm HĐ
-                        </button>
-                    </div>
-
-                    <!-- 5. Modal Thêm Hoạt Động -->
-                    <div id="demo-modal" class="modal-overlay fixed inset-0 bg-slate-900/80 backdrop-blur-sm p-4 flex justify-center items-center z-[8000] opacity-0 pointer-events-none transition-colors duration-300">
-                        
-                        <div class="modal-content bg-slate-100 rounded-2xl md:rounded-3xl w-full max-w-lg mx-auto shadow-2xl flex flex-col transform translate-y-10 transition-transform duration-300 overflow-hidden relative" id="demo-modal-content">
-                            
-                            <div class="p-4 md:p-5 border-b border-slate-200 flex justify-between items-center bg-white sticky top-0 z-20 shadow-sm">
-                                <h2 class="text-lg font-black text-slate-900 flex items-center gap-2">
-                                    <i class="fa-solid fa-plus text-blue-500 bg-blue-50 p-2 rounded-lg text-sm"></i> Thêm hoạt động
-                                </h2>
-                                <button onclick="closeDemoModal()" class="w-8 h-8 flex items-center justify-center bg-slate-100 hover:bg-slate-200 rounded-full text-slate-600 transition-colors"><i class="fa-solid fa-xmark"></i></button>
-                            </div>
-                            
-                            <div class="p-4 md:p-5 space-y-4 bg-white">
-                                <div class="space-y-1.5">
-                                    <label class="text-[11px] font-black text-slate-400 uppercase tracking-wider">Tên hoạt động <span class="text-red-500">*</span></label>
-                                    <input type="text" id="demo-input-name" placeholder="VD: Ăn Pad Thai..." class="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:border-blue-400 outline-none font-bold text-slate-800 text-sm">
-                                </div>
-                                <div class="flex gap-3">
-                                    <div class="flex-1 space-y-1.5">
-                                        <label class="text-[11px] font-black text-slate-400 uppercase tracking-wider">Từ giờ</label>
-                                        <input type="time" id="demo-input-time" value="10:00" class="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-xl outline-none font-black text-slate-800 text-center text-sm">
-                                    </div>
-                                    <div class="flex-[1.5] space-y-1.5">
-                                        <label class="text-[11px] font-black text-slate-400 uppercase tracking-wider">Phân loại</label>
-                                        <select id="demo-input-type" class="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-xl outline-none font-bold text-slate-700 text-sm">
-                                            <option value="fa-utensils|bg-orange-100 text-orange-500|Ăn uống">🍽 Ăn uống</option>
-                                            <option value="fa-location-dot|bg-purple-100 text-purple-500|Tham quan">📍 Tham quan</option>
-                                            <option value="fa-bag-shopping|bg-pink-100 text-pink-500|Mua sắm">🛍 Mua sắm</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div class="p-4 border-t border-white/40 bg-white/30 backdrop-blur-lg sticky bottom-0 z-20 flex justify-end gap-3 shadow-[0_-10px_20px_rgba(0,0,0,0.03)]">
-                                <button onclick="closeDemoModal()" class="px-5 py-2.5 text-sm font-bold text-slate-600 bg-white/80 hover:bg-white rounded-xl transition-colors shadow-sm">Hủy</button>
-                                <button onclick="saveDemoActivity()" class="px-6 py-2.5 text-sm font-bold text-white bg-blue-600 hover:bg-blue-700 rounded-xl shadow-md shadow-blue-200 transition-transform active:scale-95 flex items-center gap-2">
-                                    <i class="fa-solid fa-check"></i> Lưu
+                    <!-- 2. Days Tabs -->
+                    <div class="dm-tabbar sticky top-0 z-10">
+                        <div class="flex items-center gap-2">
+                            <div id="demo-days-container" class="dm-tabs flex overflow-x-auto hide-scrollbar gap-3 pb-1 flex-1 cursor-grab select-none">
+                                <button onclick="switchDemoDay(1)" id="demo-tab-1" class="demo-tab-btn flex-shrink-0 px-4 py-2.5 bg-slate-900 text-white rounded-2xl shadow-lg shadow-slate-900/20 border border-slate-800 flex flex-col items-center justify-center min-w-[80px] transition-transform active:scale-95">
+                                    <span class="text-[10px] font-black uppercase tracking-widest text-slate-300">Ngày 1</span>
+                                    <span class="text-sm font-bold mt-0.5">28/09</span>
+                                </button>
+                                <button onclick="switchDemoDay(2)" id="demo-tab-2" class="demo-tab-btn flex-shrink-0 px-4 py-2.5 bg-white text-slate-500 hover:bg-slate-50 hover:text-slate-800 rounded-2xl border border-slate-200 flex flex-col items-center justify-center min-w-[80px] transition-colors">
+                                    <span class="text-[10px] font-black uppercase tracking-widest">Ngày 2</span>
+                                    <span class="text-sm font-bold mt-0.5">29/09</span>
+                                </button>
+                                <button onclick="switchDemoDay(3)" id="demo-tab-3" class="demo-tab-btn flex-shrink-0 px-4 py-2.5 bg-white text-slate-500 hover:bg-slate-50 hover:text-slate-800 rounded-2xl border border-slate-200 flex flex-col items-center justify-center min-w-[80px] transition-colors">
+                                    <span class="text-[10px] font-black uppercase tracking-widest">Ngày 3</span>
+                                    <span class="text-sm font-bold mt-0.5">30/09</span>
                                 </button>
                             </div>
                         </div>
                     </div>
 
-                    <!-- 6. Modal Toàn Cảnh Lịch Trình -->
-                    <div id="demo-overview-modal" class="modal-overlay fixed inset-0 bg-slate-900/80 backdrop-blur-sm p-4 flex justify-center items-center z-[8000] opacity-0 pointer-events-none transition-colors duration-300">
-                        <div class="modal-content bg-slate-100 rounded-2xl md:rounded-3xl w-full max-w-4xl mx-auto flex flex-col max-h-[85vh] md:max-h-[80vh] shadow-2xl relative overflow-hidden transform translate-y-10 transition-transform duration-300" id="demo-overview-content">
-                            
-                            <!-- Header -->
-                            <div class="p-4 md:p-5 bg-white border-b border-slate-200 flex justify-between items-center z-20 sticky top-0 shadow-sm">
-                                <h2 class="font-black text-slate-800 flex items-center gap-2">
-                                    <i class="fa-solid fa-calendar-days text-blue-500 bg-blue-50 p-2 rounded-lg text-sm"></i> Toàn cảnh Hành trình
-                                </h2>
-                                <button onclick="closeDemoOverview()" class="w-8 h-8 rounded-full bg-slate-100 text-slate-600 hover:bg-slate-200 transition-colors"><i class="fa-solid fa-xmark"></i></button>
-                            </div>
-                            
-                            <!-- Toàn cảnh -->
-                            <div class="flex-1 overflow-y-auto p-4 md:p-6 hide-scrollbar bg-slate-50 relative overscroll-contain">
-                                <div id="demo-overview-timeline" class="space-y-4 md:space-y-8 relative before:absolute before:inset-y-0 before:left-5 md:before:left-[27px] before:w-[2px] before:bg-slate-200">
-                                   
+                    <!-- Toast Notification -->
+                    <div id="demo-toast" class="absolute top-4 left-1/2 -translate-x-1/2 z-50 bg-slate-900/90 backdrop-blur-md text-white px-5 py-3 rounded-full shadow-2xl flex items-center gap-3 text-xs font-bold transition-colors duration-300 transform -translate-y-20 opacity-0 pointer-events-none whitespace-nowrap">
+                        <i class="fa-solid fa-circle-info text-blue-400"></i>
+                        <span id="demo-toast-text">Tính năng nằm trong bản đầy đủ!</span>
+                    </div>
+
+                    <!-- 3. Timeline Container -->
+                    <div class="p-4 md:p-6 flex-1 relative pb-28">
+                        <div id="demo-activities" class="dm-line space-y-0 relative">
+
+                            <!-- Card 1 -->
+                            <div class="relative pl-12 pb-6 group">
+                                <div class="absolute left-0 top-1 w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center text-blue-500 font-black z-10 ring-4 ring-slate-50 text-sm shadow-sm transition-transform group-hover:scale-110">
+                                    <i class="fa-solid fa-plane"></i>
                                 </div>
-                                
-                                <!-- CTA source code -->
-                                <div class="mt-10 text-center pb-4">
-                                    <button onclick="openJokeModal()" class="px-6 py-3 bg-slate-900 hover:bg-black text-white text-xs font-bold rounded-full shadow-lg transition-transform active:scale-95 flex items-center justify-center gap-2 mx-auto">
-                                        <i class="fa-solid fa-code"></i> Thử nghiệm chính thức
-                                    </button>
+                                <div class="bg-white p-4 rounded-2xl border border-slate-100 shadow-sm flex flex-col hover:border-blue-200 hover:shadow-md transition-colors cursor-pointer">
+                                    <div class="flex justify-between items-start gap-4">
+                                        <span class="font-bold text-slate-800 text-sm md:text-base">Hạ cánh tại Suvarnabhumi</span>
+                                        <span class="px-2 py-1 bg-slate-100 text-slate-500 rounded-lg text-[10px] font-black whitespace-nowrap">Di chuyển</span>
+                                    </div>
+                                    <span class="text-xs font-bold text-slate-400 mt-2 flex items-center gap-1"><i class="fa-regular fa-clock"></i> 08:00 - 09:30</span>
                                 </div>
                             </div>
+
                         </div>
                     </div>
-
-                    <!-- 7. Modal Tạo Hàng Loạt -->
-                    <div id="demo-bulk-modal" class="modal-overlay fixed inset-0 bg-slate-900/80 backdrop-blur-sm p-4 flex justify-center items-center z-[8000] opacity-0 pointer-events-none transition-colors duration-300">
-                        <div class="modal-content bg-slate-100 rounded-2xl md:rounded-3xl w-full max-w-3xl mx-auto flex flex-col max-h-[90vh] shadow-2xl relative overflow-hidden transform translate-y-10 transition-transform duration-300" id="demo-bulk-content">
-                            <div class="p-4 md:p-5 border-b border-slate-200 flex justify-between items-center bg-white z-30 sticky top-0">
-                                <h2 class="text-lg font-black text-slate-900"><i class="fa-solid fa-layer-group text-blue-500 mr-2"></i> Tạo nhiều hoạt động</h2>
-                                <button onclick="closeDemoBulk()" class="w-8 h-8 rounded-full bg-slate-100 text-slate-600"><i class="fa-solid fa-xmark"></i></button>
-                            </div>
-                            <div class="p-4 md:p-5 overflow-y-auto flex-1 relative hide-scrollbar" id="demo-bulk-scroll">
-                                <div id="demo-bulk-container" class="space-y-4"></div>
-                                <button onclick="addDemoBulkItem()" class="w-full mt-4 py-4 font-bold text-blue-600 bg-blue-50 border-2 border-dashed border-blue-200 rounded-2xl transition-colors text-sm hover:bg-blue-100">
-                                    <i class="fa-solid fa-plus"></i> Thêm 1 thẻ nữa
-                                </button>
-                            </div>
-                            <div class="p-4 border-t border-white/40 bg-white/30 backdrop-blur-lg sticky bottom-0 z-30 flex justify-end gap-3">
-                                <button onclick="closeDemoBulk()" class="px-5 py-2.5 text-sm font-bold text-slate-600 bg-white/80 rounded-xl">Hủy</button>
-                                <button onclick="saveDemoBulk()" class="px-6 py-2.5 text-sm font-bold text-white bg-slate-900 rounded-xl"><i class="fa-solid fa-check-double"></i> Lưu tất cả</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- 8. Popup Đùa (Easter Egg - Đình công) -->
-                    <div id="demo-joke-modal" class="modal-overlay fixed inset-0 bg-slate-900/60 backdrop-blur-sm p-4 flex justify-center items-center z-[9000] opacity-0 pointer-events-none transition-colors duration-300">
-                        <div class="bg-white rounded-[2rem] p-6 md:p-8 max-w-sm w-full text-center shadow-2xl transform scale-90 transition-transform duration-300 border border-slate-100" id="demo-joke-content">
-                            <div class="text-6xl mb-4 animate-bounce">🙈</div>
-                            <h3 class="text-xl font-black text-slate-800 mb-2">Oops! </h3>
-                            <p class="text-sm font-medium text-slate-500 mb-6 leading-relaxed">
-                                Tạo 3 hoạt động là đủ mệt rồi bạn ơi! Để trải nghiệm tạo không giới hạn, hãy nhấp vào link nhé 
-                            </p>
-                            <a href="https://duyanh-dev.github.io/schedule-planing/" target="_blank" class="w-full block py-3.5 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-black rounded-xl shadow-lg hover:shadow-blue-500/30 transition-colors active:scale-95">
-                                <i class="fa-solid fa-plane-departure mr-1"></i>bắt đầu ngay
-                            </a>
-                            <button onclick="closeJokeModal()" class="w-full mt-3 py-3 text-slate-400 font-bold hover:text-slate-600 transition-colors">Để khi khác</button>
-                        </div>
-                    </div>
-
                 </div>
+
+                <!-- 4. Action Bar (thanh kính nổi) -->
+                <div class="dm-dock absolute z-20 flex gap-2">
+                    <button onclick="openDemoOverview()" class="dm-btn hidden md:block">
+                        <i class="fa-solid fa-calendar-days mr-1"></i> Toàn cảnh
+                    </button>
+                    <button onclick="openDemoBulk()" class="dm-btn is-soft">
+                        <i class="fa-solid fa-layer-group mr-1"></i> Tạo nhiều
+                    </button>
+                    <button onclick="openDemoModal()" class="dm-btn is-primary">
+                        <i class="fa-solid fa-plus mr-1"></i> Thêm HĐ
+                    </button>
+                </div>
+
+                <!-- 5. Modal Thêm Hoạt Động (GIỮ NGUYÊN) -->
+                <div id="demo-modal" class="modal-overlay fixed inset-0 bg-slate-900/80 backdrop-blur-sm p-4 flex justify-center items-center z-[8000] opacity-0 pointer-events-none transition-colors duration-300">
+                    <div class="modal-content bg-slate-100 rounded-2xl md:rounded-3xl w-full max-w-lg mx-auto shadow-2xl flex flex-col transform translate-y-10 transition-transform duration-300 overflow-hidden relative" id="demo-modal-content">
+                        <div class="p-4 md:p-5 border-b border-slate-200 flex justify-between items-center bg-white sticky top-0 z-20 shadow-sm">
+                            <h2 class="text-lg font-black text-slate-900 flex items-center gap-2">
+                                <i class="fa-solid fa-plus text-blue-500 bg-blue-50 p-2 rounded-lg text-sm"></i> Thêm hoạt động
+                            </h2>
+                            <button onclick="closeDemoModal()" class="w-8 h-8 flex items-center justify-center bg-slate-100 hover:bg-slate-200 rounded-full text-slate-600 transition-colors"><i class="fa-solid fa-xmark"></i></button>
+                        </div>
+                        <div class="p-4 md:p-5 space-y-4 bg-white">
+                            <div class="space-y-1.5">
+                                <label class="text-[11px] font-black text-slate-400 uppercase tracking-wider">Tên hoạt động <span class="text-red-500">*</span></label>
+                                <input type="text" id="demo-input-name" placeholder="VD: Ăn Pad Thai..." class="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:border-blue-400 outline-none font-bold text-slate-800 text-sm">
+                            </div>
+                            <div class="flex gap-3">
+                                <div class="flex-1 space-y-1.5">
+                                    <label class="text-[11px] font-black text-slate-400 uppercase tracking-wider">Từ giờ</label>
+                                    <input type="time" id="demo-input-time" value="10:00" class="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-xl outline-none font-black text-slate-800 text-center text-sm">
+                                </div>
+                                <div class="flex-[1.5] space-y-1.5">
+                                    <label class="text-[11px] font-black text-slate-400 uppercase tracking-wider">Phân loại</label>
+                                    <select id="demo-input-type" class="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-xl outline-none font-bold text-slate-700 text-sm">
+                                        <option value="fa-utensils|bg-orange-100 text-orange-500|Ăn uống">🍽 Ăn uống</option>
+                                        <option value="fa-location-dot|bg-purple-100 text-purple-500|Tham quan">📍 Tham quan</option>
+                                        <option value="fa-bag-shopping|bg-pink-100 text-pink-500|Mua sắm">🛍 Mua sắm</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-4 border-t border-white/40 bg-white/30 backdrop-blur-lg sticky bottom-0 z-20 flex justify-end gap-3 shadow-[0_-10px_20px_rgba(0,0,0,0.03)]">
+                            <button onclick="closeDemoModal()" class="px-5 py-2.5 text-sm font-bold text-slate-600 bg-white/80 hover:bg-white rounded-xl transition-colors shadow-sm">Hủy</button>
+                            <button onclick="saveDemoActivity()" class="px-6 py-2.5 text-sm font-bold text-white bg-blue-600 hover:bg-blue-700 rounded-xl shadow-md shadow-blue-200 transition-transform active:scale-95 flex items-center gap-2">
+                                <i class="fa-solid fa-check"></i> Lưu
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 6. Modal Toàn Cảnh (GIỮ NGUYÊN) -->
+                <div id="demo-overview-modal" class="modal-overlay fixed inset-0 bg-slate-900/80 backdrop-blur-sm p-4 flex justify-center items-center z-[8000] opacity-0 pointer-events-none transition-colors duration-300">
+                    <div class="modal-content bg-slate-100 rounded-2xl md:rounded-3xl w-full max-w-4xl mx-auto flex flex-col max-h-[85vh] md:max-h-[80vh] shadow-2xl relative overflow-hidden transform translate-y-10 transition-transform duration-300" id="demo-overview-content">
+                        <div class="p-4 md:p-5 bg-white border-b border-slate-200 flex justify-between items-center z-20 sticky top-0 shadow-sm">
+                            <h2 class="font-black text-slate-800 flex items-center gap-2">
+                                <i class="fa-solid fa-calendar-days text-blue-500 bg-blue-50 p-2 rounded-lg text-sm"></i> Toàn cảnh Hành trình
+                            </h2>
+                            <button onclick="closeDemoOverview()" class="w-8 h-8 rounded-full bg-slate-100 text-slate-600 hover:bg-slate-200 transition-colors"><i class="fa-solid fa-xmark"></i></button>
+                        </div>
+                        <div class="flex-1 overflow-y-auto p-4 md:p-6 hide-scrollbar bg-slate-50 relative overscroll-contain">
+                            <div id="demo-overview-timeline" class="space-y-4 md:space-y-8 relative before:absolute before:inset-y-0 before:left-5 md:before:left-[27px] before:w-[2px] before:bg-slate-200">
+                            </div>
+                            <div class="mt-10 text-center pb-4">
+                                <button onclick="openJokeModal()" class="px-6 py-3 bg-slate-900 hover:bg-black text-white text-xs font-bold rounded-full shadow-lg transition-transform active:scale-95 flex items-center justify-center gap-2 mx-auto">
+                                    <i class="fa-solid fa-code"></i> Thử nghiệm chính thức
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 7. Modal Tạo Hàng Loạt (GIỮ NGUYÊN) -->
+                <div id="demo-bulk-modal" class="modal-overlay fixed inset-0 bg-slate-900/80 backdrop-blur-sm p-4 flex justify-center items-center z-[8000] opacity-0 pointer-events-none transition-colors duration-300">
+                    <div class="modal-content bg-slate-100 rounded-2xl md:rounded-3xl w-full max-w-3xl mx-auto flex flex-col max-h-[90vh] shadow-2xl relative overflow-hidden transform translate-y-10 transition-transform duration-300" id="demo-bulk-content">
+                        <div class="p-4 md:p-5 border-b border-slate-200 flex justify-between items-center bg-white z-30 sticky top-0">
+                            <h2 class="text-lg font-black text-slate-900"><i class="fa-solid fa-layer-group text-blue-500 mr-2"></i> Tạo nhiều hoạt động</h2>
+                            <button onclick="closeDemoBulk()" class="w-8 h-8 rounded-full bg-slate-100 text-slate-600"><i class="fa-solid fa-xmark"></i></button>
+                        </div>
+                        <div class="p-4 md:p-5 overflow-y-auto flex-1 relative hide-scrollbar" id="demo-bulk-scroll">
+                            <div id="demo-bulk-container" class="space-y-4"></div>
+                            <button onclick="addDemoBulkItem()" class="w-full mt-4 py-4 font-bold text-blue-600 bg-blue-50 border-2 border-dashed border-blue-200 rounded-2xl transition-colors text-sm hover:bg-blue-100">
+                                <i class="fa-solid fa-plus"></i> Thêm 1 thẻ nữa
+                            </button>
+                        </div>
+                        <div class="p-4 border-t border-white/40 bg-white/30 backdrop-blur-lg sticky bottom-0 z-30 flex justify-end gap-3">
+                            <button onclick="closeDemoBulk()" class="px-5 py-2.5 text-sm font-bold text-slate-600 bg-white/80 rounded-xl">Hủy</button>
+                            <button onclick="saveDemoBulk()" class="px-6 py-2.5 text-sm font-bold text-white bg-slate-900 rounded-xl"><i class="fa-solid fa-check-double"></i> Lưu tất cả</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 8. Popup Đùa (GIỮ NGUYÊN) -->
+                <div id="demo-joke-modal" class="modal-overlay fixed inset-0 bg-slate-900/60 backdrop-blur-sm p-4 flex justify-center items-center z-[9000] opacity-0 pointer-events-none transition-colors duration-300">
+                    <div class="bg-white rounded-[2rem] p-6 md:p-8 max-w-sm w-full text-center shadow-2xl transform scale-90 transition-transform duration-300 border border-slate-100" id="demo-joke-content">
+                        <div class="text-6xl mb-4 animate-bounce">🙈</div>
+                        <h3 class="text-xl font-black text-slate-800 mb-2">Oops! </h3>
+                        <p class="text-sm font-medium text-slate-500 mb-6 leading-relaxed">
+                            Tạo 3 hoạt động là đủ mệt rồi bạn ơi! Để trải nghiệm tạo không giới hạn, hãy nhấp vào link nhé 
+                        </p>
+                        <a href="https://duyanh-dev.github.io/schedule-planing/" target="_blank" class="w-full block py-3.5 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-black rounded-xl shadow-lg hover:shadow-blue-500/30 transition-colors active:scale-95">
+                            <i class="fa-solid fa-plane-departure mr-1"></i>bắt đầu ngay
+                        </a>
+                        <button onclick="closeJokeModal()" class="w-full mt-3 py-3 text-slate-400 font-bold hover:text-slate-600 transition-colors">Để khi khác</button>
+                    </div>
+                </div>
+
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
     <footer class="tp-footer" id="tpFooter">
   <!-- Các khối màu phía sau để kính có thứ mà khúc xạ -->

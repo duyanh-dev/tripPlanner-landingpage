@@ -961,3 +961,23 @@ const setHidden = (hide) => {
         requestAnimationFrame(tick);
     } catch (err) { bail(); }
 })();
+
+(() => {
+    const dev = document.getElementById('dm-device');
+    if (!dev) return;
+    if (!matchMedia('(pointer: fine)').matches) return;
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    dev.addEventListener('pointermove', e => {
+        const r = dev.getBoundingClientRect();
+        const x = e.clientX - r.left, y = e.clientY - r.top;
+        dev.style.setProperty('--mx', x + 'px');
+        dev.style.setProperty('--my', y + 'px');
+        dev.style.setProperty('--px', (x / r.width * 2 - 1).toFixed(3));
+        dev.style.setProperty('--py', (y / r.height * 2 - 1).toFixed(3));
+    });
+    dev.addEventListener('pointerleave', () => {
+        dev.style.removeProperty('--px');
+        dev.style.removeProperty('--py');
+    });
+})();
