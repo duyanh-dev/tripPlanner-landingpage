@@ -807,7 +807,7 @@ html{  overflow-x: hidden;
 .tp-glass {
   position: relative;
   isolation: isolate;
-  background: rgba(51, 65, 85, 0.26);               /* đậm hơn để tách khỏi nền */
+  background: rgba(51, 65, 85, 0.26);
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.7),
     inset 0 -1px 0 rgba(15, 23, 42, 0.08),
@@ -831,7 +831,6 @@ html{  overflow-x: hidden;
     backdrop-filter: blur(14px) url(#tp-refract) saturate(1.7) brightness(0.9);
   }
 }
-
 .tp-glass::after {
   content: "";
   position: absolute;
@@ -994,7 +993,7 @@ html{  overflow-x: hidden;
 .tp-lang[data-lang="vi"] [data-opt="vi"],
 .tp-lang[data-lang="en"] [data-opt="en"] { color: var(--tp-text-strong); }
 
-/* hamburger */
+/* ================= Hamburger ================= */
 .tp-burger {
   display: none;
   position: relative;
@@ -1020,6 +1019,7 @@ html{  overflow-x: hidden;
 .tp-burger[aria-expanded="true"] span:nth-child(2) { transform: translateY(-4px) rotate(-45deg); }
 
 /* ================= Menu mobile ================= */
+/* Không animate opacity trên khung để backdrop-filter luôn ăn ngay */
 .tp-mobile {
   display: none;
   width: min(1040px, 100%);
@@ -1030,13 +1030,13 @@ html{  overflow-x: hidden;
   transform-origin: top center;
   will-change: transform;
 
-  /* trạng thái ĐÓNG: xẹp lên trên, nhanh và dứt khoát */
+  /* ĐÓNG: xẹp lên trên, nhanh và dứt khoát */
   transform: translateY(-14px) scale(.94, .5);
   opacity: 1;
   visibility: hidden;
   transition:
     transform .26s cubic-bezier(.5, 0, .75, 0),
-    opacity .08s ease .18s,          /* chỉ mờ ở 80ms cuối */
+    opacity .08s ease .18s,
     visibility 0s .26s;
 }
 .tp-mobile.is-open {
@@ -1056,7 +1056,7 @@ html{  overflow-x: hidden;
   text-decoration: none;
   border-radius: 18px;
   opacity: 0;
-  transition: opacity .1s ease, background .2s ease;   /* đóng: chỉ mờ, không trượt */
+  transition: opacity .1s ease, background .2s ease;
 }
 .tp-mobile.is-open a {
   opacity: 1;
@@ -1068,32 +1068,19 @@ html{  overflow-x: hidden;
 .tp-mobile a:hover,
 .tp-mobile a:active { background: rgba(255, 255, 255, 0.55); }
 
-/* ================= Giọt nước (đặt SAU .tp-glass để ghi đè position) ================= */
-.tp-drop {
-  display: none;
-  position: absolute;
-  top: 0;
-  left: 50%;
-  width: 56px;
-  height: 56px;
-  margin-left: -28px;
-  place-items: center;
-  border-radius: 50%;
-  font-size: 1.05rem;
-  color: #2563eb;
-  opacity: 0;
-  pointer-events: none;
-  transform-origin: 50% 40%;
-  will-change: transform, opacity;
-}
-
 /* ================= MOBILE ================= */
 @media (max-width: 768px) {
+
+  .tp-nav {
+    transition:
+      width .5s cubic-bezier(.2, .8, .2, 1),
+      padding .35s ease,
+      background .35s ease,
+      box-shadow .35s ease;
+  }
   .tp-links  { display: none; }
   .tp-burger { display: block; }
   .tp-mobile { display: flex; }
-
-  .tp-drop   { display: none; }
 
   .tp-glass::before {
     -webkit-backdrop-filter: blur(24px) saturate(1.7) brightness(0.9);
@@ -1103,77 +1090,75 @@ html{  overflow-x: hidden;
   .tp-brand:hover .tp-brand-icon { transform: none; }
   .tp-brand-icon { transition: none; }
 
+  /* Không đặt overflow:hidden / will-change:opacity ở đây để blur không bị mất */
   .tp-nav,
   .tp-header.is-scrolled .tp-nav {
     width: calc(100vw - 32px);
     height: 56px;
     padding: 0 9px 0 12px;
     border-radius: 28px;
-    overflow: hidden;
-    will-change: width, transform, opacity;
   }
   .tp-brand, .tp-actions { white-space: nowrap; }
 
-  /* ---------- HIỆN: viên tròn bung ra thành thanh ---------- */
-  .tp-nav {
-    transition:
-      width .6s cubic-bezier(.3, 1.12, .5, 1),
-      transform .5s cubic-bezier(.22, 1, .36, 1),
-      opacity .15s ease,
-      background .35s ease,
-      box-shadow .35s ease;
-  }
-  .tp-nav > .tp-brand,
-  .tp-nav > .tp-actions {
-    transition: opacity .25s ease .22s;
-  }
-
-  /* ---------- ẨN: co thành viên tròn rồi bay lên, tan ---------- */
-  .tp-header.is-hidden .tp-nav,
-  .tp-header.is-hidden.is-scrolled .tp-nav {
+  /* ---------- ẨN: giọt nước tỏng xuống rồi tan ---------- */
+   .tp-header.is-hidden .tp-nav {
     width: 56px;
-    opacity: 0;
-    transform: translateY(-18px) scale(.8);
+    transform: translateY(58px) scale(0, 1.6);   /* thay cho opacity:0 */
+    visibility: hidden;
     pointer-events: none;
-    transition:
-      width .3s cubic-bezier(.65, 0, .35, 1),
-      transform .3s cubic-bezier(.5, 0, .75, 0) .1s,
-      opacity .18s ease .16s,
-      background .35s ease,
-      box-shadow .35s ease;
+    animation: tp-drip .7s both;
   }
   .tp-header.is-hidden .tp-nav > .tp-brand,
   .tp-header.is-hidden .tp-nav > .tp-actions {
-    opacity: 0;
-    transition: opacity .1s ease;
+    animation: tp-content-out .12s ease both;
   }
   .tp-header.is-hidden .tp-mobile {
-  visibility: hidden;
-  transition: none;
-} 
-}
+    visibility: hidden;
+    transition: none;
+  }
 
-/* nav bóp lại → giọt tròn hiện ra → kéo dài, bay lên và tan */
-@keyframes tp-drop-out {
-  0%   { opacity: 0; transform: translateY(0) scale(.35, .35); animation-timing-function: cubic-bezier(.3, 1.6, .5, 1); }
-  26%  { opacity: 1; transform: translateY(0) scale(1.08, .96); animation-timing-function: ease-out; }
-  42%  { opacity: 1; transform: translateY(0) scale(1, 1); animation-timing-function: cubic-bezier(.5, 0, .9, .4); }
-  100% { opacity: 0; transform: translateY(-70px) scale(.5, 1.55); }
-}
+  /* ---------- HIỆN: viên tròn bung ra thành thanh ---------- */
+  .tp-header.is-revealed .tp-nav {
+    animation: tp-expand .6s both;
+  }
+  .tp-header.is-revealed .tp-nav > .tp-brand,
+  .tp-header.is-revealed .tp-nav > .tp-actions {
+    animation: tp-content-in .25s ease .3s both;
+  }
 
-/* giọt rơi từ trên xuống → bẹp khi chạm đáy → nảy lên → nhường chỗ cho nav */
-@keyframes tp-drop-in {
-  0%   { opacity: 0; transform: translateY(-74px) scale(.5, 1.5); animation-timing-function: ease-out; }
-  12%  { opacity: 1; transform: translateY(-48px) scale(.55, 1.45); animation-timing-function: cubic-bezier(.55, 0, .9, .5); }
-  38%  { opacity: 1; transform: translateY(0) scale(.82, 1.22); animation-timing-function: ease-out; }
-  44%  { opacity: 1; transform: translateY(0) scale(1.32, .72); animation-timing-function: ease-out; }
-  58%  { opacity: 1; transform: translateY(0) scale(.94, 1.07); animation-timing-function: ease-in-out; }
-  70%  { opacity: 1; transform: translateY(0) scale(1, 1); animation-timing-function: ease-in; }
-  100% { opacity: 0; transform: translateY(0) scale(1.7, 1); }
+   .tp-header.is-hidden .tp-nav,
+  .tp-header.is-revealed .tp-nav {
+    transition: background .35s ease, box-shadow .35s ease;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .tp-glass, .tp-indicator, .tp-lang-thumb, .tp-mobile, .tp-brand-icon,
-  .tp-nav, .tp-nav > * { transition: none !important; }
-  .tp-drop { display: none !important; }
+  .tp-glass, .tp-indicator, .tp-lang-thumb, .tp-mobile, .tp-mobile a,
+  .tp-brand-icon, .tp-nav, .tp-nav > * {
+    transition: none !important;
+  }
+  .tp-nav, .tp-nav > * { animation: none !important; }
 }
+
+/* ================= Keyframes ================= */
+@keyframes tp-drip {
+  0%   { width: calc(100vw - 32px); transform: none; visibility: visible;
+         animation-timing-function: cubic-bezier(.65, 0, .35, 1); }
+  35%  { width: 56px; transform: none;
+         animation-timing-function: ease-out; }
+  50%  { width: 56px; transform: translateY(3px) scale(.92, 1.12);
+         animation-timing-function: cubic-bezier(.55, 0, 1, .6); }
+  80%  { width: 56px; transform: translateY(40px) scale(.55, 1.45); visibility: visible; }
+  100% { width: 56px; transform: translateY(58px) scale(0, 1.6); visibility: hidden; }
+}
+
+@keyframes tp-expand {
+  0%   { width: 56px; transform: translateY(-14px) scale(.4, .8); visibility: visible;
+         animation-timing-function: cubic-bezier(.22, 1, .36, 1); }
+  25%  { width: 56px; transform: none;
+         animation-timing-function: cubic-bezier(.3, 1.12, .5, 1); }
+  100% { width: calc(100vw - 32px); transform: none; visibility: visible; }
+}
+
+@keyframes tp-content-out { to { opacity: 0; } }
+@keyframes tp-content-in  { from { opacity: 0; } to { opacity: 1; } }

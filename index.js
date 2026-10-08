@@ -765,12 +765,21 @@ edge.style.background = `rgba(255,255,255,${0.16 - (i / n) * 0.08})`;
   });
 
   /* ---------- 5. Cuộn: thu gọn desktop + giọt nước ẩn/hiện mobile ---------- */
-  let revealTimer = null;
+ let revealTimer = null;
 
- const setHidden = (hide) => {
+const setHidden = (hide) => {
   if (header.classList.contains('is-hidden') === hide) return;
+
+  clearTimeout(revealTimer);
   header.classList.toggle('is-hidden', hide);
-  if (hide) setMenu(false);
+
+  if (hide) {
+    header.classList.remove('is-revealed');
+    setMenu(false);
+  } else {
+    header.classList.add('is-revealed');
+    revealTimer = setTimeout(() => header.classList.remove('is-revealed'), 700);
+  }
 };
 
   let lastY = Math.max(0, window.scrollY);
