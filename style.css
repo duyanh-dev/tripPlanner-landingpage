@@ -1101,13 +1101,13 @@ html{  overflow-x: hidden;
   .tp-brand, .tp-actions { white-space: nowrap; }
 
   /* ---------- ẨN: giọt nước tỏng xuống rồi tan ---------- */
-   .tp-header.is-hidden .tp-nav {
-    width: 56px;
-    transform: translateY(58px) scale(0, 1.6);   /* thay cho opacity:0 */
-    visibility: hidden;
-    pointer-events: none;
-    animation: tp-drip .7s both;
-  }
+  .tp-header.is-hidden .tp-nav {
+  width: 56px;
+  transform: scale(0);
+  visibility: hidden;
+  pointer-events: none;
+  animation: tp-drip .42s both;
+}
   .tp-header.is-hidden .tp-nav > .tp-brand,
   .tp-header.is-hidden .tp-nav > .tp-actions {
     animation: tp-content-out .12s ease both;
@@ -1143,21 +1143,31 @@ html{  overflow-x: hidden;
 /* ================= Keyframes ================= */
 @keyframes tp-drip {
   0%   { width: calc(100vw - 32px); transform: none; visibility: visible;
-         animation-timing-function: cubic-bezier(.65, 0, .35, 1); }
-  35%  { width: 56px; transform: none;
-         animation-timing-function: ease-out; }
-  50%  { width: 56px; transform: translateY(3px) scale(.92, 1.12);
-         animation-timing-function: cubic-bezier(.55, 0, 1, .6); }
-  80%  { width: 56px; transform: translateY(40px) scale(.55, 1.45); visibility: visible; }
-  100% { width: 56px; transform: translateY(58px) scale(0, 1.6); visibility: hidden; }
+         animation-timing-function: cubic-bezier(.6, 0, .3, 1); }      /* hai đầu bị hút vào */
+  42%  { width: 56px; transform: scale(.96, 1.16);                     /* nhập lại, nước dồn lên */
+         animation-timing-function: cubic-bezier(.3, 0, .3, 1); }
+  58%  { width: 56px; transform: scale(1.14, .88);                     /* dội lại, bẹt ngang */
+         animation-timing-function: ease-in-out; }
+  72%  { width: 56px; transform: scale(.94, 1.06);                     /* dao động nhỏ */
+         animation-timing-function: cubic-bezier(.6, 0, .9, .5); }
+  100% { width: 56px; transform: scale(0); visibility: hidden; }       /* thấm vào mặt nước */
 }
 
 @keyframes tp-expand {
-  0%   { width: 56px; transform: translateY(-14px) scale(.4, .8); visibility: visible;
-         animation-timing-function: cubic-bezier(.22, 1, .36, 1); }
-  25%  { width: 56px; transform: none;
-         animation-timing-function: cubic-bezier(.3, 1.12, .5, 1); }
-  100% { width: calc(100vw - 32px); transform: none; visibility: visible; }
+  0%   { width: 56px; transform: scale(0); visibility: visible;
+         animation-timing-function: cubic-bezier(.2, .9, .3, 1); }     /* giọt bật ra */
+  22%  { width: 56px; transform: scale(1.14, .9);
+         animation-timing-function: ease-in-out; }
+  34%  { width: 56px; transform: scale(.95, 1.08);                    /* dồn lực trước khi loang */
+         animation-timing-function: cubic-bezier(.5, 0, .2, 1); }
+  72%  { width: calc(100vw - 32px); transform: scale(1.025, .94);     /* loang ra, hơi tràn */
+         animation-timing-function: cubic-bezier(.3, 1, .5, 1); }
+  100% { width: calc(100vw - 32px); transform: none; }
+}
+
+@keyframes tp-ripple {
+  0%   { opacity: .9; transform: scale(.25); }
+  100% { opacity: 0;  transform: scale(1.6); }
 }
 
 @keyframes tp-content-out { to { opacity: 0; } }
