@@ -1172,3 +1172,265 @@ html{  overflow-x: hidden;
 
 @keyframes tp-content-out { to { opacity: 0; } }
 @keyframes tp-content-in  { from { opacity: 0; } to { opacity: 1; } }
+
+
+/* ================= Footer kính lỏng ================= */
+@property --a { syntax: '<angle>'; inherits: false; initial-value: 0deg; }
+
+.tp-footer {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding: 96px 16px clamp(64px, 9vw, 130px);
+  font-family: 'Inter', system-ui, sans-serif;
+}
+
+/* --- khối màu phía sau --- */
+.tp-f-orb {
+  position: absolute;
+  z-index: 0;
+  border-radius: 50%;
+  pointer-events: none;
+  animation-play-state: paused;
+}
+.tp-f-orb--1 {
+  width: 360px; height: 360px; left: 6%; top: 0;
+  background: radial-gradient(circle at 35% 35%, rgba(96,165,250,.95), rgba(59,130,246,0) 68%);
+  animation: tp-f-float-a 14s ease-in-out infinite;
+}
+.tp-f-orb--2 {
+  width: 300px; height: 300px; right: 8%; top: 40px;
+  background: radial-gradient(circle at 40% 40%, rgba(34,211,238,.85), rgba(34,211,238,0) 68%);
+  animation: tp-f-float-b 17s ease-in-out infinite;
+}
+.tp-f-orb--3 {
+  width: 320px; height: 320px; left: 42%; bottom: 10px;
+  background: radial-gradient(circle at 50% 40%, rgba(167,139,250,.85), rgba(167,139,250,0) 68%);
+  animation: tp-f-float-c 19s ease-in-out infinite;
+}
+.tp-footer.is-live .tp-f-orb { animation-play-state: running; }
+
+@keyframes tp-f-float-a { 50% { transform: translate3d(90px, 40px, 0) scale(1.18); } }
+@keyframes tp-f-float-b { 50% { transform: translate3d(-110px, 60px, 0) scale(.88); } }
+@keyframes tp-f-float-c { 50% { transform: translate3d(-80px, -50px, 0) scale(1.12); } }
+
+/* --- chữ khổng lồ nằm sau kính --- */
+.tp-f-giant {
+  position: absolute;
+  z-index: 1;
+  left: 50%;
+  bottom: -.16em;
+  transform: translateX(-50%);
+  font-size: clamp(72px, 19vw, 260px);
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -.06em;
+  white-space: nowrap;
+  user-select: none;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(37,99,235,.55), rgba(99,102,241,.08));
+  -webkit-background-clip: text;
+          background-clip: text;
+  color: transparent;
+}
+
+/* --- tấm kính chính --- */
+.tp-f-panel {
+  position: relative;
+  z-index: 2;
+  width: min(1040px, 100%);
+  margin: 0 auto;
+  padding: 34px clamp(20px, 4vw, 48px) 24px;
+  border-radius: 40px;
+  --mx: 50%;
+  --my: 0%;
+  background: rgba(255, 255, 255, .22);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.85),
+    inset 0 -1px 0 rgba(15,23,42,.06),
+    inset 0 0 40px rgba(255,255,255,.14),
+    0 30px 70px rgba(15,23,42,.18),
+    0 2px 6px rgba(15,23,42,.1);
+}
+/* chỉ blur thường để animation nền mượt; muốn khúc xạ thì thêm url(#tp-refract) */
+.tp-f-panel.tp-glass::before {
+  -webkit-backdrop-filter: blur(16px) saturate(1.9) brightness(1.05);
+          backdrop-filter: blur(16px) saturate(1.9) brightness(1.05);
+}
+/* viền kính chạy vòng quanh */
+.tp-f-panel.tp-glass::after {
+  padding: 1.5px;
+  background: conic-gradient(from var(--a),
+    rgba(255,255,255,.95),
+    rgba(96,165,250,.4) 20%,
+    rgba(255,255,255,.08) 40%,
+    rgba(167,139,250,.4) 62%,
+    rgba(255,255,255,.08) 80%,
+    rgba(255,255,255,.95));
+  animation: tp-f-spin 9s linear infinite paused;
+}
+.tp-footer.is-live .tp-f-panel.tp-glass::after { animation-play-state: running; }
+@keyframes tp-f-spin { to { --a: 360deg; } }
+
+/* đốm sáng bám theo chuột */
+.tp-f-shine {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: radial-gradient(420px circle at var(--mx) var(--my),
+    rgba(255,255,255,.5), rgba(255,255,255,.12) 38%, transparent 62%);
+}
+
+/* --- bố cục --- */
+.tp-f-top, .tp-f-bottom { position: relative; z-index: 1; }
+.tp-f-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+.tp-f-brand { display: flex; align-items: center; gap: 14px; }
+.tp-f-brand .tp-brand-icon { width: 44px; height: 44px; font-size: 1rem; border-radius: 14px; }
+.tp-f-brand strong { font-size: 1.15rem; font-weight: 800; letter-spacing: -.03em; color: var(--tp-text-strong); }
+.tp-f-brand p { margin: 2px 0 0; font-size: .82rem; font-weight: 500; color: var(--tp-text); }
+
+.tp-f-social { display: flex; gap: 14px; }
+
+.tp-f-rule {
+  position: relative;
+  z-index: 1;
+  height: 1px;
+  margin: 26px 0 18px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.9), rgba(15,23,42,.1), rgba(255,255,255,.9), transparent);
+}
+
+.tp-f-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px 20px;
+  flex-wrap: wrap;
+  font-size: .78rem;
+  font-weight: 500;
+  color: var(--tp-text);
+}
+.tp-f-bottom p { margin: 0; }
+.tp-f-bottom a { font-weight: 700; color: var(--tp-text-strong); text-decoration: none; transition: color .25s; }
+.tp-f-bottom a:hover { color: #2563eb; }
+
+.tp-f-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: .68rem;
+  font-weight: 800;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--tp-text-strong);
+  background: rgba(255,255,255,.5);
+  box-shadow: inset 0 1px 0 #fff, 0 2px 8px rgba(15,23,42,.1);
+}
+.tp-f-dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: #22c55e;
+  box-shadow: 0 0 0 0 rgba(34,197,94,.6);
+  animation: tp-f-pulse 2s ease-out infinite;
+}
+@keyframes tp-f-pulse { to { box-shadow: 0 0 0 8px rgba(34,197,94,0); } }
+
+/* --- nút giọt nước --- */
+.tp-f-btn {
+  position: relative;
+  width: 52px;
+  height: 52px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  font-size: 1.15rem;
+  color: var(--tp-text);
+  text-decoration: none;
+  background: rgba(255,255,255,.38);
+  -webkit-backdrop-filter: blur(10px) saturate(1.6);
+          backdrop-filter: blur(10px) saturate(1.6);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.95),
+    inset 0 -6px 12px rgba(59,130,246,.12),
+    inset 0 0 0 1px rgba(255,255,255,.35),
+    0 8px 20px rgba(15,23,42,.14);
+  translate: var(--tx, 0px) var(--ty, 0px);
+  transition:
+    translate .3s cubic-bezier(.2, .8, .2, 1),
+    transform .5s cubic-bezier(.34, 1.56, .64, 1),
+    color .25s ease,
+    box-shadow .35s ease;
+}
+
+
+/* đốm phản quang trên đỉnh giọt */
+.tp-f-btn::after {
+  content: "";
+  position: absolute;
+  top: 7px; left: 12px;
+  width: 15px; height: 7px;
+  border-radius: 50%;
+  background: rgba(255,255,255,.9);
+  filter: blur(1px);
+  transform: rotate(-24deg);
+  transition: transform .5s cubic-bezier(.34, 1.56, .64, 1);
+}
+.tp-f-btn:hover,
+.tp-f-btn:focus-visible {
+  color: #1d4ed8;
+  transform: scale(1.14);
+  animation: tp-f-morph 2.4s ease-in-out infinite;
+  box-shadow:
+    inset 0 1px 0 #fff,
+    inset 0 -8px 16px rgba(59,130,246,.22),
+    inset 0 0 0 1px rgba(255,255,255,.5),
+    0 14px 30px rgba(37,99,235,.28);
+}
+.tp-f-btn:hover::after { transform: rotate(-24deg) translate(3px, 1px) scale(1.15); }
+.tp-f-btn:focus-visible { outline: 2px solid #2563eb; outline-offset: 3px; }
+
+@keyframes tp-f-morph {
+  0%, 100% { border-radius: 50%; }
+  25% { border-radius: 58% 42% 46% 54% / 48% 56% 44% 52%; }
+  50% { border-radius: 44% 56% 58% 42% / 56% 44% 56% 44%; }
+  75% { border-radius: 52% 48% 40% 60% / 42% 58% 42% 58%; }
+}
+
+/* --- xuất hiện khi cuộn tới (chỉ dùng transform trên kính, KHÔNG dùng opacity) --- */
+.tp-footer.js .tp-f-panel {
+  transform: translateY(48px) scale(.95);
+  transition: transform 1s cubic-bezier(.2, .8, .2, 1);
+}
+.tp-footer.js .tp-f-panel.is-in { transform: none; }
+
+.tp-footer.js [data-rise] {
+  opacity: 0;
+  transform: translateY(14px);
+  transition:
+    opacity .7s ease calc(var(--i) * 90ms + 300ms),
+    transform .8s cubic-bezier(.2, .8, .2, 1) calc(var(--i) * 90ms + 300ms);
+}
+.tp-footer.js .is-in [data-rise] { opacity: 1; transform: none; }
+
+
+
+/* --- mobile --- */
+@media (max-width: 640px) {
+  .tp-footer { padding-top: 64px; }
+  .tp-f-panel { border-radius: 32px; }
+  .tp-f-top { flex-direction: column; text-align: center; gap: 22px; }
+  .tp-f-brand { flex-direction: column; gap: 10px; }
+  .tp-f-bottom { flex-direction: column; text-align: center; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tp-f-orb, .tp-f-panel::after, .tp-f-dot, .tp-f-btn { animation: none !important; }
+  .tp-footer.js .tp-f-panel, .tp-footer.js [data-rise] { transform: none; opacity: 1; transition: none; }
+}

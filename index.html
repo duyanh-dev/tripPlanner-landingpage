@@ -760,29 +760,49 @@
         </div>
     </section>
 
-    <!-- Footer (Đã thêm link Github & Repository) -->
-    <footer class="py-10 border-t border-slate-200/50 glass-nav text-center relative z-10 flex flex-col items-center">
-        <div class="flex justify-center items-center gap-2 mb-4">
-            <i class="fa-solid fa-plane-departure text-blue-500 text-xl"></i>
-            <span class="font-black text-slate-800 text-lg">TripPlanner</span>
-        </div>
-        
-        <!-- Social/Repo Links -->
-        <div class="flex gap-4 mb-6">
-            <a href="https://github.com/duyanh-dev" target="_blank" class="w-10 h-10 rounded-full bg-white border border-slate-200 flex items-center justify-center text-slate-600 hover:text-slate-900 hover:border-slate-300 hover:shadow-sm transition-colors">
-                <i class="fa-brands fa-github text-lg"></i>
-            </a>
-            <a href="https://github.com/duyanh-dev/schedule-planing" target="_blank" class="w-10 h-10 rounded-full bg-white border border-slate-200 flex items-center justify-center text-slate-600 hover:text-slate-900 hover:border-slate-300 hover:shadow-sm transition-colors" title="Repository">
-                <i class="fa-solid fa-code-branch text-lg"></i>
-            </a>
-            <a href="mailto:buiduyanh.17042001@gmail.com" class="w-10 h-10 rounded-full bg-white border border-slate-200 flex items-center justify-center text-slate-600 hover:text-slate-900 hover:border-slate-300 hover:shadow-sm transition-colors">
-                <i class="fa-solid fa-envelope text-lg"></i>
-            </a>
-        </div>
+    <footer class="tp-footer" id="tpFooter">
+  <!-- Các khối màu phía sau để kính có thứ mà khúc xạ -->
+  <span class="tp-f-orb tp-f-orb--1" aria-hidden="true"></span>
+  <span class="tp-f-orb tp-f-orb--2" aria-hidden="true"></span>
+  <span class="tp-f-orb tp-f-orb--3" aria-hidden="true"></span>
+  <div class="tp-f-giant" aria-hidden="true">TripPlanner</div>
 
-        <p class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1.5">Version 1.0.0 (Beta)</p>
-        <p class="text-xs font-medium text-slate-500">© 2026 Developed by <a href="https://github.com/duyanh-dev" target="_blank" class="font-bold text-slate-700 hover:text-blue-600 transition-colors">duyanh-dev</a>. All rights reserved.</p>
-    </footer>
+  <div class="tp-f-panel tp-glass" id="tpFooterPanel">
+    <div class="tp-f-shine" aria-hidden="true"></div>
+
+    <div class="tp-f-top">
+      <div class="tp-f-brand" data-rise style="--i:0">
+        <span class="tp-brand-icon"><i class="fa-solid fa-plane-departure"></i></span>
+        <div>
+          <strong>TripPlanner</strong>
+          <p data-i18n="footer_tagline">Lên kế hoạch chuyến đi, nhẹ như nước.</p>
+        </div>
+      </div>
+
+      <div class="tp-f-social" data-rise style="--i:1">
+        <a class="tp-f-btn" href="https://github.com/duyanh-dev" target="_blank" rel="noopener" aria-label="GitHub">
+          <i class="fa-brands fa-github"></i>
+        </a>
+        <a class="tp-f-btn" href="https://github.com/duyanh-dev/schedule-planing" target="_blank" rel="noopener" aria-label="Repository" title="Repository">
+          <i class="fa-solid fa-code-branch"></i>
+        </a>
+        <a class="tp-f-btn" href="mailto:buiduyanh.17042001@gmail.com" aria-label="Email">
+          <i class="fa-solid fa-envelope"></i>
+        </a>
+      </div>
+    </div>
+
+    <div class="tp-f-rule" aria-hidden="true"></div>
+
+    <div class="tp-f-bottom" data-rise style="--i:2">
+      <p>© 2026 <span data-i18n="footer_dev">Phát triển bởi</span>
+        <a href="https://github.com/duyanh-dev" target="_blank" rel="noopener">duyanh-dev</a>.
+        All rights reserved.
+      </p>
+      <span class="tp-f-chip"></i>Version 1.2.0</span>
+    </div>
+  </div>
+</footer>
 
     <!-- AOS Animation Library -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
