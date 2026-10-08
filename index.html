@@ -30,6 +30,60 @@
 </head>
 <body class="text-slate-800 antialiased relative">
 
+    <noscript><style>.pl{display:none!important} html.pl-lock,html.pl-lock body{overflow:auto!important}</style></noscript>
+
+<div id="preloader" class="pl" role="status" aria-live="polite" aria-label="Loading">
+    <div class="pl-half top"></div>
+    <div class="pl-half bot"></div>
+
+    <div class="pl-stage">
+        <div class="pl-rings"><i></i><i></i><i></i></div>
+        <span class="pl-cloud" style="top:12%; --d:26s; --delay:-8s; --s:1;"></span>
+        <span class="pl-cloud" style="top:72%; --d:32s; --delay:-20s; --s:.8;"></span>
+        <span class="pl-cloud" style="top:86%; --d:22s; --delay:-3s; --s:.6;"></span>
+
+        <div class="pl-ticket">
+            <!-- Thân vé -->
+            <div class="pl-main pl-glass">
+                <div class="pl-top">
+                    <span class="pl-brand">
+                        <svg width="14" height="14" viewBox="-20 -12 36 24" aria-hidden="true"><path fill="#0f172a" d="M13 0 L-3 -3.2 L-9 -10 L-12 -10 L-9.5 -2.2 L-15 -1.6 L-17 -4.6 L-19.5 -4.6 L-18 0 L-19.5 4.6 L-17 4.6 L-15 1.6 L-9.5 2.2 L-12 10 L-9 10 L-3 3.2 Z"/></svg>
+                        TRIPPLANNER
+                    </span>
+                    <span data-pl="pass">BOARDING PASS</span>
+                </div>
+
+                <div class="pl-route">
+                    <div class="pl-code"><b>SGN</b><small data-pl="from">Hồ Chí Minh</small></div>
+
+                    <svg class="pl-arc" viewBox="0 0 200 64" aria-hidden="true">
+                        <path id="pl-base" d="M6 54 C 50 -6, 150 -6, 194 54" fill="none" stroke="rgba(100,116,139,.5)" stroke-width="1.5" stroke-dasharray="2 6" stroke-linecap="round"/>
+                        <path id="pl-prog" d="M6 54 C 50 -6, 150 -6, 194 54" fill="none" stroke="#0f172a" stroke-width="1.8" stroke-linecap="round" stroke-dashoffset="9999"/>
+                        <circle cx="6" cy="54" r="3.5" fill="#0f172a"/>
+                        <circle cx="194" cy="54" r="3.5" fill="#fff" stroke="#0f172a" stroke-width="1.6"/>
+                        <g id="pl-plane" transform="translate(6 54) scale(.85)">
+                            <path fill="#0f172a" d="M13 0 L-3 -3.2 L-9 -10 L-12 -10 L-9.5 -2.2 L-15 -1.6 L-17 -4.6 L-19.5 -4.6 L-18 0 L-19.5 4.6 L-17 4.6 L-15 1.6 L-9.5 2.2 L-12 10 L-9 10 L-3 3.2 Z"/>
+                        </g>
+                    </svg>
+
+                    <div class="pl-code r"><b>BKK</b><small data-pl="to">Bangkok</small></div>
+                </div>
+
+                <div class="pl-status"><span id="pl-msg" class="pl-msg"></span></div>
+            </div>
+
+            <!-- Cuống vé (xé rời khi xong) -->
+            <div class="pl-stub pl-glass" aria-hidden="true">
+                <div class="pl-percent">
+                    <small data-pl="prog">TIẾN ĐỘ</small>
+                    <div><strong id="pl-num">0</strong><em>%</em></div>
+                </div>
+                <div class="pl-bar"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
     <!-- Navigation -->
     <header class="tp-header" id="tpHeader">
   <nav class="tp-nav tp-glass" aria-label="Điều hướng chính">
@@ -432,7 +486,7 @@
                                 <div class="bad">#N/A</div>
                                 <div></div>
                             </div>
-                            <div class="sticky" data-i18n="cmp_note">Đã đặt khách sạn chưa??</div>
+                            <div class="sticky-badge" data-i18n="cmp_note">Đã đặt khách sạn chưa??</div>
                         </div>
 
                         <!-- Đường chia + chốt kính + gợi ý -->

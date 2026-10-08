@@ -469,48 +469,68 @@ if (daysSlider) {
   });
 }
 
-        document.addEventListener("DOMContentLoaded", () => {
-            // 1. Text Reveal (Cắt chữ từ dưới lên)
-            gsap.from(".hero-text-line", {
-                y: "110%", 
-                opacity: 0,
-                duration: 1.2,
-                stagger: 0.2,
-                ease: "power4.out",
-                delay: 0.1
+      (() => {
+    let started = false;
+
+    const startHero = () => {
+        if (started) return;
+        started = true;
+
+        // 1. Text Reveal (cắt chữ từ dưới lên)
+        gsap.from(".hero-text-line", {
+            y: "110%",
+            opacity: 0,
+            duration: 1.2,
+            stagger: 0.2,
+            ease: "power4.out",
+            delay: 0.25          // rèm đang mở, chữ trồi lên theo
+        });
+
+        gsap.from(".hero-reveal", {
+            y: 30, opacity: 0, duration: 1, stagger: 0.15, ease: "power3.out", delay: 0.7
+        });
+
+        // 2. Parallax lơ lửng cho Card & Clouds (chỉ Desktop)
+        if (window.innerWidth > 1024) {
+            gsap.to(".parallax-card", {
+                y: "-=25",
+                rotationX: "+=3",
+                rotationY: "-=3",
+                duration: 4,
+                yoyo: true,
+                repeat: -1,
+                ease: "sine.inOut"
             });
 
-            gsap.from(".hero-reveal", {
-                y: 30, opacity: 0, duration: 1, stagger: 0.15, ease: "power3.out", delay: 0.6
-            });
-
-            // 2. Parallax lơ lửng cho Card & Clouds (Chỉ áp dụng Desktop)
-            if (window.innerWidth > 1024) {
-                // Thẻ kính nổi bồng bềnh
-                gsap.to(".parallax-card", {
-                    y: "-=25",
-                    rotationX: "+=3",
-                    rotationY: "-=3",
-                    duration: 4,
+            document.querySelectorAll(".parallax-cloud").forEach((cloud, index) => {
+                gsap.to(cloud, {
+                    y: index % 2 === 0 ? "-=15" : "+=15",
+                    x: index % 2 === 0 ? "+=10" : "-=10",
+                    duration: 3 + (index * 0.5),
                     yoyo: true,
                     repeat: -1,
-                    ease: "sine.inOut"
+                    ease: "sine.inOut",
+                    delay: index * 0.2
                 });
+            });
+        }
 
-                // Mây lơ lửng với nhịp điệu khác nhau
-                document.querySelectorAll(".parallax-cloud").forEach((cloud, index) => {
-                    gsap.to(cloud, {
-                        y: index % 2 === 0 ? "-=15" : "+=15",
-                        x: index % 2 === 0 ? "+=10" : "-=10",
-                        duration: 3 + (index * 0.5),
-                        yoyo: true,
-                        repeat: -1,
-                        ease: "sine.inOut",
-                        delay: index * 0.2
-                    });
-                });
-            }
-        });
+        if (window.AOS) AOS.refresh();
+    };
+
+    const boot = () => {
+        const pl = document.getElementById('preloader');
+        const done = document.documentElement.classList.contains('is-loaded');
+
+        if (!pl || done) return startHero();                   // không có preloader → chạy luôn
+        window.addEventListener('preloader:done', startHero, { once: true });
+        setTimeout(startHero, 16000);                          // chốt an toàn, lớn hơn mốc 15s của preloader
+    };
+
+    document.readyState === 'loading'
+        ? document.addEventListener('DOMContentLoaded', boot)
+        : boot();
+})();
         
 
 // ===== Card 3D: lát cạnh + kéo xoay =====
@@ -816,4 +836,128 @@ const setHidden = (hide) => {
   window.addEventListener('resize', onScrollFrame);
   window.addEventListener('load', update);
   update();
+})();
+
+
+(() => {
+    const html = document.documentElement;
+    const root = document.getElementById('preloader');
+    const bail = () => { html.classList.remove('pl-lock'); root && root.remove(); };
+    if (!root) return bail();
+
+    try {
+        const $ = s => root.querySelector(s);
+        const base = $('#pl-base'), prog = $('#pl-prog'), plane = $('#pl-plane');
+        const num = $('#pl-num'), msg = $('#pl-msg');
+
+        const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+        let seen = false;
+        try { seen = sessionStorage.getItem('pl-seen') === '1'; sessionStorage.setItem('pl-seen', '1'); } catch (e) {}
+
+        // ---- Ngôn ngữ (đọc từ <html lang="..">) ----
+        const T = {
+            vi: { pass: 'THẺ LÊN MÁY BAY', from: 'Hồ Chí Minh', to: 'Bangkok', prog: 'TIẾN ĐỘ',
+                  msgs: ['Đang xếp hành lý…', 'Đang vẽ lộ trình…', 'Đang tính ngân sách…', 'Sẵn sàng cất cánh'] },
+            en: { pass: 'BOARDING PASS', from: 'Ho Chi Minh City', to: 'Bangkok', prog: 'PROGRESS',
+                  msgs: ['Packing your bags…', 'Drawing the route…', 'Counting the budget…', 'Ready for takeoff'] }
+        };
+        const lang = (html.lang || 'vi').toLowerCase().startsWith('en') ? 'en' : 'vi';
+        root.querySelectorAll('[data-pl]').forEach(el => { el.textContent = T[lang][el.dataset.pl]; });
+
+        // ---- Chờ tải thật ----
+        let loaded = false;
+        Promise.all([
+            document.readyState === 'complete' ? 1 : new Promise(r => addEventListener('load', r, { once: true })),
+            document.fonts ? document.fonts.ready : 1
+        ]).then(() => { loaded = true; });
+        setTimeout(() => { loaded = true; }, 9000);          // chốt an toàn
+        setTimeout(bail, 15000);                              // chốt an toàn cuối
+
+        const unlock = () => {
+            html.classList.remove('pl-lock');
+            html.classList.add('is-loaded');
+            window.dispatchEvent(new Event('preloader:done'));
+        };
+
+        // Giảm chuyển động: chỉ mờ dần
+        if (reduce) {
+            const wait = setInterval(() => {
+                if (!loaded) return;
+                clearInterval(wait);
+                root.style.transition = 'opacity .3s'; root.style.opacity = 0;
+                setTimeout(() => { root.remove(); unlock(); }, 320);
+            }, 80);
+            return;
+        }
+
+        // ---- Máy bay chạy dọc đường cung ----
+        const L = base.getTotalLength();
+        prog.style.strokeDasharray = L;
+        const pt = len => base.getPointAtLength(Math.max(0, Math.min(L, len)));
+        const placePlane = len => {
+            const a = pt(len - .6), b = pt(len + .6), c = pt(len);
+            const ang = Math.atan2(b.y - a.y, b.x - a.x) * 180 / Math.PI;
+            plane.setAttribute('transform', `translate(${c.x.toFixed(2)} ${c.y.toFixed(2)}) rotate(${ang.toFixed(1)}) scale(.85)`);
+        };
+
+        let stage = -1;
+        const render = v => {
+            const len = L * v / 100;
+            prog.style.strokeDashoffset = L - len;
+            placePlane(len);
+            num.textContent = Math.round(v);
+            const s = v < 28 ? 0 : v < 58 ? 1 : v < 90 ? 2 : 3;
+            if (s !== stage) {
+                stage = s; msg.textContent = T[lang].msgs[s];
+                msg.classList.remove('swap'); void msg.offsetWidth; msg.classList.add('swap');
+            }
+        };
+
+        // ---- Máy bay chếch lên cất cánh ----
+        const flyOut = () => {
+            const end = pt(L), prev = pt(L - 1);
+            const ang0 = Math.atan2(end.y - prev.y, end.x - prev.x) * 180 / Math.PI;
+            let x = end.x, y = end.y, last = performance.now();
+            const s0 = last, D = 650;
+            const step = now => {
+                const dt = now - last; last = now;
+                const k = Math.min((now - s0) / D, 1);
+                const ang = ang0 + (-28 - ang0) * Math.min(k * 1.5, 1);
+                const sp = .05 + .35 * k * k, r = ang * Math.PI / 180;
+                x += Math.cos(r) * sp * dt; y += Math.sin(r) * sp * dt;
+                plane.setAttribute('transform', `translate(${x.toFixed(2)} ${y.toFixed(2)}) rotate(${ang.toFixed(1)}) scale(${(.85 + k * .7).toFixed(2)})`);
+                plane.style.opacity = 1 - Math.max(0, (k - .55) / .45);
+                if (k < 1) requestAnimationFrame(step);
+            };
+            requestAnimationFrame(step);
+        };
+
+        const finish = () => {
+            root.classList.add('is-tear');              // xé cuống vé
+            flyOut();                                    // máy bay cất cánh
+            setTimeout(() => root.classList.add('is-leave'), 700);   // thẻ tan đi
+            setTimeout(() => {                                       // mở rèm
+                root.classList.add('is-open');
+                unlock();
+            }, 1100);
+            setTimeout(() => root.remove(), 2000);
+        };
+
+        // ---- Vòng lặp tiến độ ----
+        const MIN = seen ? 900 : 2800;
+        const t0 = performance.now();
+        let p = 0;
+        const tick = now => {
+            const el = now - t0, t = Math.min(el / MIN, 1);
+            const ready = loaded && el >= MIN;
+            const target = ready ? 100 : 92 * (1 - Math.pow(1 - t, 2.4));
+            p += (target - p) * .1;
+            if (ready && p > 99.4) p = 100;
+            render(p);
+            if (p >= 100) return finish();
+            requestAnimationFrame(tick);
+        };
+        render(0);
+        requestAnimationFrame(tick);
+    } catch (err) { bail(); }
 })();
