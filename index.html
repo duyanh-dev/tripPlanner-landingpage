@@ -7,6 +7,10 @@
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+
+   <!-- GSAP & ScrollTrigger -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     
     <!-- FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -16,6 +20,10 @@
     
     <!-- AOS Animation CSS -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
 
     <link href="./style.css" rel="stylesheet">
 
@@ -30,7 +38,7 @@
     </div>
 
     <!-- Navigation -->
-    <nav class="fixed top-0 w-full z-50 glass-nav transition-all py-4">
+    <nav class="fixed top-0 w-full z-50 glass-nav transition-colors py-4">
         <div class="max-w-7xl mx-auto px-6 flex justify-between items-center">
             <div class="flex items-center gap-2 font-black text-xl tracking-tighter text-slate-900">
                 <i class="fa-solid fa-plane-departure text-blue-500"></i> TripPlanner
@@ -53,115 +61,473 @@
         </div>
     </nav>
 
-    <!-- 1. Hero Section -->
-    <section class="min-h-screen flex items-center justify-center pt-24 pb-12 px-6 relative">
-        <div class="max-w-4xl mx-auto text-center z-10" data-aos="fade-up" data-aos-duration="1000">
-            <h1 class="text-5xl md:text-7xl font-black text-slate-900 tracking-tight leading-[1.1] mb-6" data-i18n="hero_title">
-                Hành trình hoàn hảo,<br><span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">Bắt đầu từ đây.</span>
-            </h1>
-            <p class="text-lg md:text-xl text-slate-600 mb-10 max-w-2xl mx-auto font-medium leading-relaxed" data-i18n="hero_subtitle">
-                Tạm biệt những bảng tính Excel khô khan hay các ứng dụng ghi chú lộn xộn. TripPlanner biến việc lên kế hoạch du lịch thành một trải nghiệm nghệ thuật.
-            </p>
-            <div class="flex flex-col sm:flex-row gap-3 justify-center items-center flex-wrap">
-                <a href="https://duyanh-dev.github.io/schedule-planing/" class="px-8 py-4 bg-slate-900 hover:bg-black text-white font-bold rounded-2xl shadow-xl shadow-slate-900/20 transition-transform active:scale-95 flex items-center gap-2" data-i18n="hero_cta1">
-                    <i class="fa-solid fa-play text-sm"></i> Thử Ngay
-                </a>
-                <a href="#story" class="px-8 py-4 glass-panel text-slate-800 font-bold rounded-2xl hover:bg-white/80 transition-colors" data-i18n="hero_cta2">
-                    Tìm hiểu thêm
-                </a>
-                <a href="https://github.com/duyanh-dev/schedule-planing" target="_blank" class="px-8 py-4 glass-panel text-slate-800 font-bold rounded-2xl hover:bg-white/80 transition-colors flex items-center gap-2">
-                    <i class="fa-brands fa-github text-lg"></i> <span data-i18n="hero_cta3">Mã nguồn</span>
-                </a>
+    <!-- 1. Hero Section (Clean Text, No Badge, Detailed Dual-Layer Glass Card) -->
+    <section id="hero"
+        class="relative w-full min-h-[100vh] flex items-center pt-28 pb-16 md:pt-32 md:pb-24 overflow-hidden bg-gradient-to-b from-[#e3f2fd] via-[#f0f7ff] to-[#e0f0fe]">
+    
+        <div
+            class="w-full max-w-[85rem] mx-auto px-6 md:px-12 flex flex-col lg:flex-row items-center justify-between z-10 relative mt-8 lg:mt-0">
+    
+            <!-- CỘT TRÁI: TEXT & BUTTONS (Liquid Glass) -->
+            <div class="w-full lg:w-[55%] text-left flex flex-col items-start z-20">
+    
+                <h1 class="text-[3rem] sm:text-[4rem] lg:text-[4.75rem] font-black leading-[1.1] mb-6 w-full select-none">
+                    <div class="hero-text-line pb-1"><span class="lg-title-1" data-i18n="hero_title_1">Lên lịch chuyến
+                            đi.</span></div>
+                    <div class="hero-text-line pb-2"><span class="lg-title-2" data-i18n="hero_title_2">Quên Excel đi.</span>
+                    </div>
+                </h1>
+    
+                <div class="hero-reveal mb-10 max-w-[92%] md:max-w-lg">
+                    <div class="lg-glass lg-clear rounded-[1.5rem] px-5 py-4 md:px-6 md:py-5">
+                        <p class="text-[15px] sm:text-base md:text-lg text-slate-700 font-medium leading-relaxed"
+                            data-i18n="hero_subtitle">
+                            TripPlanner gom cả chuyến đi vào một dòng thời gian rõ ràng: giờ giấc, lộ trình, chi phí và hành
+                            trang. Không còn bảng tính chằng chịt, mở lên là biết hôm nay đi đâu, làm gì, tiêu bao nhiêu.
+                        </p>
+                    </div>
+                </div>
+    
+                <div
+                    class="hero-reveal grid grid-cols-2 sm:flex sm:flex-wrap sm:items-center gap-3 sm:gap-4 w-full max-w-[26rem] sm:max-w-none">
+    
+                    <a href="https://duyanh-dev.github.io/schedule-planing/"
+                        class="lg-glass lg-smoke lg-btn group col-span-2 sm:col-span-1 px-8 py-4 text-white font-bold rounded-full flex items-center justify-center">
+                        <span class="flex items-center gap-2 text-[15px] md:text-base">
+                            <span data-i18n="hero_cta1">Trải nghiệm ngay</span>
+                            <i
+                                class="fa-solid fa-plane text-sm transform -rotate-45 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform"></i>
+                        </span>
+                    </a>
+    
+                    <a href="#story"
+                        class="lg-glass lg-clear lg-btn px-4 sm:px-7 py-3.5 text-slate-700 font-bold rounded-full text-sm md:text-base flex items-center justify-center">
+                        <span class="lg-sheen"></span>
+                        <span class="flex items-center gap-2">
+                            <span class="whitespace-nowrap" data-i18n="hero_cta2">Tìm hiểu thêm</span>
+                        </span>
+                    </a>
+    
+                    <a href="https://github.com/duyanh-dev/schedule-planing" target="_blank" rel="noopener"
+                        class="lg-glass lg-clear lg-btn px-4 sm:px-7 py-3.5 text-slate-700 font-bold rounded-full text-sm md:text-base flex items-center justify-center">
+                        <span class="lg-sheen"></span>
+                        <span class="flex items-center gap-2">
+                            <i class="fa-brands fa-github text-lg"></i>
+                            <span class="whitespace-nowrap" data-i18n="hero_cta3">Mã nguồn</span>
+                        </span>
+                    </a>
+                </div>
             </div>
+    
+            <div class="w-full lg:w-[45%] flex justify-center items-center mt-10 lg:mt-0 z-20">
+                <div class="hero-card-box" id="hero-card-box">
+                    <div class="hero-card-scale">
+                        <div class="relative w-[370px] mt-12 z-20 parallax-card">
+                            <div class="tilt-scene relative" id="tilt-scene">
+    
+                                <!-- ===== TRANG TRÍ PHÍA SAU (Z âm) ===== -->
+                                <!-- Đường bay nét đứt -->
+                                <div class="deco flight-path" style="inset:0; transform: translateZ(-25px);">
+                                    <svg width="370" height="480" viewBox="0 0 370 480" fill="none"
+                                        style="overflow:visible">
+                                        <path d="M 10 430 C 40 250, 250 300, 345 40" stroke="#60a5fa" stroke-width="2.5"
+                                            stroke-linecap="round" opacity=".7" />
+                                    </svg>
+                                </div>
+    
+                                <!-- Mây xa -->
+                                <div class="deco" style="top:5.5rem; right:-3rem; transform: translateZ(-45px);">
+                                    <div class="deco-in" style="--dx:-10px; --dy:6px; --dur:8s;">
+                                        <div class="cloud cloud-far" style="--c:15px;"></div>
+                                    </div>
+                                </div>
+                                <div class="deco" style="bottom:4rem; left:-3.2rem; transform: translateZ(-55px);">
+                                    <div class="deco-in" style="--dx:12px; --dy:-6px; --dur:9s; --delay:-3s;">
+                                        <div class="cloud cloud-far" style="--c:12px;"></div>
+                                    </div>
+                                </div>
+                                <div class="deco deco-sm-hide" style="top:-2.5rem; left:35%; transform: translateZ(-40px);">
+                                    <div class="deco-in" style="--dx:14px; --dy:4px; --dur:10s; --delay:-5s;">
+                                        <div class="cloud cloud-far" style="--c:10px;"></div>
+                                    </div>
+                                </div>
+    
+                                <!-- Bóng đổ -->
+                                <div class="layer-shadow absolute inset-x-4 inset-y-10 rounded-[2rem] pointer-events-none">
+                                </div>
+    
+                                <!-- ===== CARD ĐÁY ===== -->
+                                <div class="slab layer-base rounded-[2rem]" data-depth="15" data-hue="210">
+                                    <div
+                                        class="slab-face base-face w-full pt-[14.5rem] pb-8 px-5 rounded-[2rem] bg-gradient-to-br from-white/70 to-white/45 border border-white/60">
+                                        <div class="space-y-3">
+                                            <div
+                                                class="flex justify-between items-center p-3.5 bg-white/60 rounded-[1rem] border border-white/70 shadow-[inset_0_2px_4px_rgba(255,255,255,0.9)] transition-colors hover:bg-white/60 cursor-default">
+                                                <span class="font-bold text-slate-800 text-[13px]">Budget items</span>
+                                                <span class="font-black text-slate-500 text-[13px]">$20.00</span>
+                                            </div>
+                                            <div
+                                                class="flex justify-between items-center p-3.5 bg-white/60 rounded-[1rem] border border-white/70 shadow-[inset_0_2px_4px_rgba(255,255,255,0.9)] transition-colors hover:bg-white/60 cursor-default">
+                                                <div>
+                                                    <div class="font-bold text-slate-800 text-[13px] leading-tight">Frosted
+                                                        morst
+                                                    </div>
+                                                    <div class="font-semibold text-slate-400 text-[10px]">Frosted atams
+                                                    </div>
+                                                </div>
+                                                <span class="font-black text-slate-500 text-[13px]">$10.00</span>
+                                            </div>
+                                            <div
+                                                class="flex justify-between items-center p-3.5 bg-white/60 rounded-[1rem] border border-white/70 shadow-[inset_0_2px_4px_rgba(255,255,255,0.9)] transition-colors hover:bg-white/60 cursor-default">
+                                                <div>
+                                                    <div class="font-bold text-slate-800 text-[13px] leading-tight">Budget
+                                                        item 3
+                                                    </div>
+                                                    <div class="font-semibold text-slate-400 text-[10px]">Refractive shadows
+                                                    </div>
+                                                </div>
+                                                <span class="font-black text-slate-500 text-[13px]">$15.00</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+    
+                                <!-- ===== TOP CARD ===== -->
+                                <div class="slab layer-top absolute top-[3rem] left-[-1rem] right-[2rem] rounded-[1.25rem]"
+                                    data-depth="9" data-hue="215">
+                                    <div
+                                        class="slab-face top-face glare p-6 rounded-[1.25rem] bg-gradient-to-br from-white/95 to-white/80 border border-white overflow-hidden">
+                                        <p class="text-xs font-bold text-slate-500 mb-2">Visa/budget card</p>
+                                        <div class="flex items-center gap-3 mb-1">
+                                            <h3
+                                                class="text-[2.5rem] font-black text-slate-900 tracking-tighter drop-shadow-[0_3px_3px_rgba(15,23,42,0.18)]">
+                                                SGN</h3>
+                                            <i class="fa-solid fa-plane text-slate-400 text-2xl transform rotate-45"></i>
+                                            <h3
+                                                class="text-[2.5rem] font-black text-slate-900 tracking-tighter drop-shadow-[0_3px_3px_rgba(15,23,42,0.18)]">
+                                                BKK</h3>
+                                        </div>
+                                        <p class="text-xs font-bold text-slate-600" data-i18n="card_flight">Chuyến bay</p>
+                                    </div>
+                                </div>
+    
+                                <!-- ===== TRANG TRÍ PHÍA TRƯỚC (Z dương) ===== -->
+                                <!-- Máy bay chạy trên đường bay -->
+                                <div class="deco" style="top:0; left:0; transform: translateZ(95px);">
+                                    <i
+                                        class="fa-solid fa-plane plane-run text-sky-500 text-lg drop-shadow-[0_6px_6px_rgba(14,165,233,0.45)]"></i>
+                                </div>
+    
+                                <!-- Mây lớn góc trên trái -->
+                                <div class="deco" style="top:-2.6rem; left:-2.8rem; transform: translateZ(120px);">
+                                    <div class="deco-in" style="--dx:10px; --dy:-6px; --dur:7s;">
+                                        <div class="cloud" style="--c:17px;"></div>
+                                    </div>
+                                </div>
+                                <!-- Mây góc dưới phải -->
+                                <div class="deco" style="bottom:-1.8rem; right:-2.6rem; transform: translateZ(110px);">
+                                    <div class="deco-in" style="--dx:-12px; --dy:-5px; --dur:8s; --delay:-2s;">
+                                        <div class="cloud" style="--c:19px;"></div>
+                                    </div>
+                                </div>
+                                <!-- Mây nhỏ giữa trái -->
+                                <div class="deco deco-sm-hide" style="top:15rem; left:-3rem; transform: translateZ(75px);">
+                                    <div class="deco-in" style="--dx:8px; --dy:8px; --dur:6s; --delay:-4s;">
+                                        <div class="cloud" style="--c:9px;"></div>
+                                    </div>
+                                </div>
+    
+                                <!-- Đồng xu -->
+                                <div class="deco deco-sm-hide"
+                                    style="bottom:7rem; right:-1.6rem; transform: translateZ(100px);">
+                                    <div class="deco-in" style="--dx:4px; --dy:-12px; --dur:5s;">
+                                        <div class="coin">$</div>
+                                    </div>
+                                </div>
+                                <!-- Ghim vị trí -->
+                                <div class="deco" style="bottom:2.5rem; left:-1.4rem; transform: translateZ(105px);">
+                                    <div class="deco-in" style="--dx:-3px; --dy:-10px; --dur:5.5s; --delay:-1.5s;">
+                                        <div class="pin"><i class="fa-solid fa-location-dot"></i></div>
+                                    </div>
+                                </div>
+    
+                                <!-- Tia sáng -->
+                                <div class="deco" style="top:-1rem; right:3rem; transform: translateZ(130px);">
+                                    <div class="spark" style="--s:16px; --dur:3s;"></div>
+                                </div>
+                                <div class="deco" style="top:10rem; right:-1.2rem; transform: translateZ(90px);">
+                                    <div class="spark" style="--s:11px; --dur:2.6s; --delay:-1s;"></div>
+                                </div>
+                                <div class="deco" style="bottom:1rem; left:35%; transform: translateZ(115px);">
+                                    <div class="spark" style="--s:13px; --dur:3.4s; --delay:-2s;"></div>
+                                </div>
+                                <div class="deco deco-sm-hide" style="top:7rem; left:-2.2rem; transform: translateZ(85px);">
+                                    <div class="spark" style="--s:10px; --dur:2.8s; --delay:-.5s;"></div>
+                                </div>
+    
+                                <!-- Chip thời gian bay -->
+                                <div
+                                    class="layer-chip absolute top-[-0.75rem] right-[-0.5rem] px-3 py-1.5 rounded-full bg-emerald-500 text-white text-[11px] font-black tracking-wide shadow-[8px_14px_22px_rgba(16,185,129,0.45),inset_0_1px_2px_rgba(255,255,255,0.6)] border border-emerald-300/60">
+                                    <i class="fa-solid fa-ticket mr-1"></i> 2h 10m
+                                </div>
+    
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    
+            <!-- Giữ parallax-card ở lớp ngoài để JS parallax cũ không ghi đè transform 3D -->
+    
         </div>
     </section>
 
-    <!-- 2. The Story Section -->
-    <section id="story" class="py-24 px-6">
-        <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-16 items-center">
+    <!-- 2. The Story Section (Liquid Glass) -->
+    <section id="story" class="story-sec relative py-20 md:py-28 px-6 overflow-x-clip">
+        <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-14 md:gap-16 items-center">
+
+            <!-- CỘT TRÁI -->
             <div data-aos="fade-right">
-                <h2 class="text-3xl md:text-5xl font-black text-slate-900 mb-6" data-i18n="story_title">Tại sao chúng tôi tạo ra TripPlanner?</h2>
-                <div class="space-y-6 text-slate-600 text-lg font-medium">
-                    <p data-i18n="story_p1">Chúng tôi yêu thích du lịch, nhưng luôn cảm thấy mệt mỏi với giai đoạn lên kế hoạch. Phải nhảy qua nhảy lại giữa Google Docs, Sheets, bản đồ và các ứng dụng ghi chú khiến mọi thứ trở nên rối rắm.</p>
-                    <p data-i18n="story_p2">Đôi khi, việc tính toán chi phí, quy đổi ngoại tệ hay dời lịch trình một hoạt động cũng ngốn của bạn hàng giờ đồng hồ.</p>
-                    <p class="font-bold text-slate-800" data-i18n="story_p3">TripPlanner ra đời để gom tất cả lại vào một giao diện tinh gọn, tuyệt đẹp và thông minh. Để bạn tập trung vào niềm vui của chuyến đi, thay vì những con số.</p>
-                </div>
-            </div>
-            <div class="relative" data-aos="fade-left">
-                <!-- Decorative Glass Elements (Đã sửa lỗi tràn viền trên SP) -->
-                <div class="glass-panel p-4 md:p-6 rounded-3xl transform rotate-2 md:rotate-3 shadow-2xl relative z-10 border border-white/80 mx-4 md:mx-0">
-                    <div class="flex items-center justify-between mb-4 pb-4 border-b border-slate-200/50">
-                        <div class="flex items-center gap-3">
-                            <div class="w-10 h-10 rounded-full bg-red-100 flex items-center justify-center text-red-500"><i class="fa-solid fa-plane"></i></div>
-                            <div>
-                                <h4 class="font-bold text-sm">Chuyến đi cũ</h4>
-                                <p class="text-[10px] md:text-xs text-slate-500">Excel, Notes, Maps...</p>
-                            </div>
+                <p class="story-eyebrow" data-i18n="nav_story">Câu chuyện</p>
+                <h2 class="story-h2" data-i18n="story_title">Tại sao chúng tôi tạo ra TripPlanner?</h2>
+
+                <div class="lg-glass lg-clear lg-card rounded-[1.75rem] p-5 md:p-8">
+                    <div class="story-body space-y-5">
+                        <p data-i18n="story_p1">Chúng tôi yêu thích du lịch, nhưng luôn cảm thấy mệt mỏi với giai đoạn lên
+                            kế hoạch. Phải nhảy qua nhảy lại giữa Google Docs, Sheets, bản đồ và các ứng dụng ghi chú khiến
+                            mọi thứ trở nên rối rắm.</p>
+                        <p data-i18n="story_p2">Đôi khi, việc tính toán chi phí, quy đổi ngoại tệ hay dời lịch trình một
+                            hoạt động cũng ngốn của bạn hàng giờ đồng hồ.</p>
+                        <div class="story-lead">
+                            <p class="story-lead-main" data-i18n="story_p3">TripPlanner ra đời để gom tất cả lại vào một
+                                giao diện tinh gọn, tuyệt đẹp và thông minh.</p>
+                            <p class="story-lead-sub" data-i18n="story_p4">Để bạn tập trung vào niềm vui của chuyến đi, thay
+                                vì những con số.</p>
                         </div>
-                        <i class="fa-solid fa-xmark text-slate-300"></i>
-                    </div>
-                    <div class="flex items-center justify-between opacity-50">
-                        <div class="h-2 bg-slate-200 rounded w-3/4"></div>
-                        <div class="h-2 bg-slate-200 rounded w-1/6"></div>
-                    </div>
-                </div>
-                <!-- Ở SP: -translate-y-6, translate-x-2. Ở PC: -translate-y-12, translate-x-8 -->
-                <div class="glass-panel p-4 md:p-6 rounded-3xl transform -rotate-2 -translate-y-6 translate-x-2 md:-rotate-3 md:-translate-y-12 md:translate-x-8 shadow-2xl absolute inset-0 z-20 border border-white/80 bg-white/60 mx-4 md:mx-0">
-                    <div class="flex items-center justify-between mb-4 pb-4 border-b border-slate-200/50">
-                        <div class="flex items-center gap-3">
-                            <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-500"><i class="fa-solid fa-sparkles"></i></div>
-                            <div>
-                                <h4 class="font-bold text-sm">TripPlanner</h4>
-                                <p class="text-[10px] md:text-xs text-slate-500">Tất cả trong một</p>
-                            </div>
-                        </div>
-                        <i class="fa-solid fa-check text-green-500"></i>
-                    </div>
-                    <div class="space-y-3">
-                        <div class="h-8 md:h-10 bg-blue-50 rounded-xl border border-blue-100"></div>
-                        <div class="h-8 md:h-10 bg-blue-50 rounded-xl border border-blue-100"></div>
                     </div>
                 </div>
             </div>
+
+            <!-- CỘT PHẢI: so sánh Trước / Sau -->
+            <div data-aos="fade-left">
+                <div class="cmp-wrap mx-2 md:mx-0" id="cmp-wrap">
+                    <div class="story-glow"></div>
+
+                    <div class="cmp lg-clear lg-card" id="cmp" tabindex="0" role="slider" aria-label="Before / After"
+                        aria-valuemin="0" aria-valuemax="100" aria-valuenow="50">
+
+                        <!-- SAU: giao diện app thật (lớp dưới) -->
+                        <div class="cmp-layer cmp-new">
+                            <span class="cmp-tag" data-i18n="cmp_after">Sau</span>
+
+                            <div class="tp-list">
+                                <!-- 1 -->
+                                <div class="tp-row">
+                                    <div class="tp-time"><b>07:30</b><small>08:30</small></div>
+                                    <div class="tp-node text-blue-600"><i class="fa-solid fa-car"></i></div>
+                                    <div class="tp-card">
+                                        <span class="tp-late">Quá hạn 10h 33p</span>
+                                        <h5 data-i18n="tl_1">Di chuyển ra sân bay</h5>
+                                        <div class="tp-tags">
+                                            <span class="tp-tag">Di chuyển</span>
+                                            <span class="tp-tag is-blue"><i class="fa-solid fa-car"></i> Taxi / Grab</span>
+                                        </div>
+                                        <div class="tp-foot">
+                                            <span class="tp-price"><i class="fa-solid fa-sack-dollar"></i> 2.000 VND</span>
+                                            <span class="tp-check"></span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- 2 -->
+                                <div class="tp-row">
+                                    <div class="tp-time"><b>09:00</b><small>11:30</small></div>
+                                    <div class="tp-node text-blue-600"><i class="fa-solid fa-plane"></i></div>
+                                    <div class="tp-card">
+                                        <h5 data-i18n="tl_2">Bay VN Airlines</h5>
+                                        <div class="tp-tags">
+                                            <span class="tp-tag">Di chuyển</span>
+                                            <span class="tp-tag is-blue"><i class="fa-solid fa-plane"></i> Máy bay</span>
+                                        </div>
+                                        <div class="tp-foot">
+                                            <span class="tp-price"><i class="fa-solid fa-sack-dollar"></i> 2.400.000
+                                                ₫</span>
+                                            <span class="tp-check"></span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- 3 -->
+                                <div class="tp-row">
+                                    <div class="tp-time"><b>12:30</b><small>13:30</small></div>
+                                    <div class="tp-node text-amber-500"><i class="fa-solid fa-utensils"></i></div>
+                                    <div class="tp-card">
+                                        <h5 data-i18n="tl_3">Ăn trưa Pad Thai</h5>
+                                        <div class="tp-tags">
+                                            <span class="tp-tag">Ăn uống</span>
+                                        </div>
+                                        <div class="tp-foot">
+                                            <span class="tp-price"><i class="fa-solid fa-sack-dollar"></i> 80 THB</span>
+                                            <span class="tp-check"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- TRƯỚC: bảng tính rối (lớp trên, bị cắt theo --p) -->
+                        <div class="cmp-layer cmp-old">
+                            <span class="cmp-tag" data-i18n="cmp_before">Trước</span>
+                            <div class="sheet">
+                                <div class="h">A</div>
+                                <div class="h">B</div>
+                                <div class="h">C</div>
+                                <div class="h">D</div>
+                                <div>8h30</div>
+                                <div>BKK</div>
+                                <div>2400</div>
+                                <div>=SUM(</div>
+                                <div class="warn">???</div>
+                                <div>hotel</div>
+                                <div class="strike">1.2M</div>
+                                <div class="bad">#REF!</div>
+                                <div>12:00</div>
+                                <div>lunch</div>
+                                <div>80</div>
+                                <div></div>
+                                <div>15h</div>
+                                <div class="warn">Wat Arun??</div>
+                                <div class="bad">#N/A</div>
+                                <div>~</div>
+                                <div>grab</div>
+                                <div>150</div>
+                                <div class="warn">THB?</div>
+                                <div></div>
+                                <div></div>
+                                <div class="strike">museum</div>
+                                <div>0</div>
+                                <div class="bad">#VALUE!</div>
+                                <div>total</div>
+                                <div>???</div>
+                                <div class="bad">#N/A</div>
+                                <div></div>
+                            </div>
+                            <div class="sticky" data-i18n="cmp_note">Đã đặt khách sạn chưa??</div>
+                        </div>
+
+                        <!-- Đường chia + chốt kính + gợi ý -->
+                        <div class="cmp-line">
+                            <div class="cmp-knob"><i class="fa-solid fa-chevron-left"></i><i
+                                    class="fa-solid fa-chevron-right"></i></div>
+                        </div>
+                        <div class="cmp-hint" data-i18n="cmp_hint">Kéo để so sánh</div>
+                    </div>
+
+                    <p class="cmp-caption" data-i18n="cmp_caption">Lịch trình, chi phí và hành trang, gói gọn trong một nơi.
+                    </p>
+                </div>
+            </div>
+
         </div>
     </section>
 
-    <!-- 3. Features Section -->
-    <section id="features" class="py-24 px-6 bg-white/20">
-        <div class="max-w-6xl mx-auto">
-            <div class="text-center mb-16" data-aos="fade-up">
-                <h2 class="text-3xl md:text-5xl font-black text-slate-900 mb-4" data-i18n="feat_main_title">Thiết kế dành riêng cho bạn</h2>
-                <p class="text-slate-600 font-medium text-lg max-w-2xl mx-auto" data-i18n="feat_main_subtitle">Những công cụ mạnh mẽ được ẩn giấu bên dưới một giao diện kính mờ xuyên thấu tinh giản.</p>
+    <!-- 3. Features Section (Liquid Glass Bento) -->
+<section id="features" class="fx-sec relative z-10 py-20 md:py-28 px-6">
+    <div class="max-w-6xl mx-auto">
+
+        <div class="fx-head" data-aos="fade-up">
+            <div>
+                <p class="story-eyebrow" data-i18n="feat_eyebrow">Tính năng</p>
+                <h2 class="story-h2 !mb-0" data-i18n="feat_main_title">Thiết kế dành riêng cho bạn</h2>
             </div>
-            
-            <div class="grid md:grid-cols-3 gap-6">
-                <!-- Feature 1 -->
-                <div class="glass-panel p-8 rounded-3xl hover:-translate-y-2 transition-transform duration-300" data-aos="fade-up" data-aos-delay="100">
-                    <div class="w-14 h-14 bg-gradient-to-br from-blue-400 to-blue-600 rounded-2xl flex items-center justify-center text-white text-xl shadow-lg shadow-blue-500/30 mb-6">
-                        <i class="fa-solid fa-timeline"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-slate-900 mb-3" data-i18n="feat1_title">Lịch trình trực quan</h3>
-                    <p class="text-slate-600 font-medium text-sm leading-relaxed" data-i18n="feat1_desc">Dòng thời gian (timeline) được thiết kế hiện đại, giúp bạn nắm bắt toàn bộ hoạt động trong ngày chỉ qua một ánh nhìn.</p>
-                </div>
-                <!-- Feature 2 -->
-                <div class="glass-panel p-8 rounded-3xl hover:-translate-y-2 transition-transform duration-300" data-aos="fade-up" data-aos-delay="200">
-                    <div class="w-14 h-14 bg-gradient-to-br from-emerald-400 to-emerald-600 rounded-2xl flex items-center justify-center text-white text-xl shadow-lg shadow-emerald-500/30 mb-6">
-                        <i class="fa-solid fa-money-bill-transfer"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-slate-900 mb-3" data-i18n="feat2_title">Quy đổi ngoại tệ</h3>
-                    <p class="text-slate-600 font-medium text-sm leading-relaxed" data-i18n="feat2_desc">Hỗ trợ tính toán ngân sách và quy đổi tự động ra các loại tiền tệ của nhiều quốc gia ngay trên thẻ chuyến đi.</p>
-                </div>
-                <!-- Feature 3 -->
-                <div class="glass-panel p-8 rounded-3xl hover:-translate-y-2 transition-transform duration-300" data-aos="fade-up" data-aos-delay="300">
-                    <div class="w-14 h-14 bg-gradient-to-br from-purple-400 to-purple-600 rounded-2xl flex items-center justify-center text-white text-xl shadow-lg shadow-purple-500/30 mb-6">
-                        <i class="fa-solid fa-layer-group"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-slate-900 mb-3" data-i18n="feat3_title">Thao tác hàng loạt</h3>
-                    <p class="text-slate-600 font-medium text-sm leading-relaxed" data-i18n="feat3_desc">Tiết kiệm thời gian với tính năng tạo nhiều hoạt động cùng lúc. Không cần phải bấm lưu từng cái một như trước nữa.</p>
-                </div>
-            </div>
+            <p class="fx-sub" data-i18n="feat_main_subtitle">Đủ công cụ cho cả chuyến đi, nằm gọn sau một giao diện không có gì thừa.</p>
         </div>
-    </section>
+
+        <div class="fx-grid">
+
+            <!-- A: Lịch trình (thẻ cao) -->
+            <article class="fx-card fx-a" data-aos="fade-up">
+                <h3 class="fx-title" data-i18n="feat1_title">Lịch trình trực quan</h3>
+                <p class="fx-desc" data-i18n="feat1_desc">Dòng thời gian được thiết kế hiện đại, giúp bạn nắm bắt toàn bộ hoạt động trong ngày chỉ qua một ánh nhìn.</p>
+
+                <div class="fx-stage fx-tl">
+                    <div class="fx-tl-row" style="--i:0">
+                        <span class="fx-t">07:30</span>
+                        <span class="fx-node text-sky-500"><i class="fa-solid fa-car"></i></span>
+                        <span class="story-chip fx-pill"><b>Di chuyển ra sân bay</b><small>Taxi / Grab</small></span>
+                    </div>
+                    <div class="fx-tl-row" style="--i:1">
+                        <span class="fx-t">09:00</span>
+                        <span class="fx-node text-sky-500"><i class="fa-solid fa-plane"></i></span>
+                        <span class="story-chip fx-pill"><b>Bay VN Airlines</b><small>Máy bay</small></span>
+                    </div>
+                    <div class="fx-tl-row" style="--i:2">
+                        <span class="fx-t">12:30</span>
+                        <span class="fx-node text-amber-500"><i class="fa-solid fa-utensils"></i></span>
+                        <span class="story-chip fx-pill"><b>Ăn trưa Pad Thai</b><small>Ăn uống</small></span>
+                    </div>
+                    <div class="fx-tl-row" style="--i:3">
+                        <span class="fx-t">15:30</span>
+                        <span class="fx-node text-violet-500"><i class="fa-solid fa-camera"></i></span>
+                        <span class="story-chip fx-pill"><b>Chùa Wat Arun</b><small>Tham quan</small></span>
+                    </div>
+                </div>
+            </article>
+
+            <!-- B: Quy đổi ngoại tệ -->
+            <article class="fx-card fx-b" data-aos="fade-up" data-aos-delay="100">
+                <h3 class="fx-title" data-i18n="feat2_title">Quy đổi ngoại tệ</h3>
+                <p class="fx-desc" data-i18n="feat2_desc">Hỗ trợ tính toán ngân sách và quy đổi tự động ra các loại tiền tệ của nhiều quốc gia ngay trên thẻ chuyến đi.</p>
+
+                <div class="fx-cur">
+                    <div class="story-chip fx-cur-row">
+                        <small>VND</small><b>1.000.000</b>
+                    </div>
+                    <span class="fx-swap"><i class="fa-solid fa-arrow-right-arrow-left fa-rotate-90"></i></span>
+                    <div class="story-chip fx-cur-row">
+                        <small>≈</small>
+                        <div class="fx-ticker">
+                            <span style="--d:0s"><b>1.390</b>&nbsp;THB</span>
+                            <span style="--d:3s"><b>38</b>&nbsp;USD</span>
+                            <span style="--d:6s"><b>5.900</b>&nbsp;JPY</span>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <!-- C: Thao tác hàng loạt -->
+            <article class="fx-card fx-c" data-aos="fade-up" data-aos-delay="150">
+                <h3 class="fx-title" data-i18n="feat3_title">Thao tác hàng loạt</h3>
+                <p class="fx-desc" data-i18n="feat3_desc">Tiết kiệm thời gian với tính năng tạo nhiều hoạt động cùng lúc. Không cần phải bấm lưu từng cái một như trước nữa.</p>
+
+                <div class="fx-batch">
+                    <div class="story-chip fx-brow" style="--i:0"><span class="fx-chk"><i class="fa-solid fa-check"></i></span>Check-in khách sạn</div>
+                    <div class="story-chip fx-brow" style="--i:1"><span class="fx-chk"><i class="fa-solid fa-check"></i></span>Ăn tối chợ đêm</div>
+                    <div class="story-chip fx-brow" style="--i:2"><span class="fx-chk"><i class="fa-solid fa-check"></i></span>Massage Thái</div>
+                    <div class="fx-save">Lưu 3 hoạt động</div>
+                </div>
+            </article>
+
+            <!-- D: Sao lưu & Phục hồi (thẻ ngang) -->
+            <article class="fx-card fx-d" data-aos="fade-up" data-aos-delay="100">
+                <div class="fx-d-in">
+                    <div>
+                        <h3 class="fx-title" data-i18n="feat4_title">Sao lưu &amp; Phục hồi</h3>
+                        <p class="fx-desc !mb-0" data-i18n="feat4_desc">Tính năng Import/Export giúp lưu trữ toàn bộ dữ liệu chuyến đi an toàn hoặc dễ dàng chia sẻ cho bạn bè chỉ với 1 cú click.</p>
+                    </div>
+                    <div class="fx-flow" aria-hidden="true">
+                        <span class="fx-dev"><i class="fa-solid fa-laptop"></i></span>
+                        <span class="fx-track">
+                            <span class="story-chip fx-file"><i class="fa-solid fa-file-code"></i>bangkok.json</span>
+                        </span>
+                        <span class="fx-dev"><i class="fa-solid fa-user-group"></i></span>
+                    </div>
+                </div>
+            </article>
+
+        </div>
+    </div>
+</section>
 
     <!-- 4. Interactive Demo -->
     <section id="demo" class="py-24 px-4 md:px-6 relative z-10">
@@ -221,7 +587,7 @@
                         </div>
                         
                         <!-- Toast Notification -->
-                        <div id="demo-toast" class="absolute top-4 left-1/2 -translate-x-1/2 z-50 bg-slate-900/90 backdrop-blur-md text-white px-5 py-3 rounded-full shadow-2xl flex items-center gap-3 text-xs font-bold transition-all duration-300 transform -translate-y-20 opacity-0 pointer-events-none whitespace-nowrap">
+                        <div id="demo-toast" class="absolute top-4 left-1/2 -translate-x-1/2 z-50 bg-slate-900/90 backdrop-blur-md text-white px-5 py-3 rounded-full shadow-2xl flex items-center gap-3 text-xs font-bold transition-colors duration-300 transform -translate-y-20 opacity-0 pointer-events-none whitespace-nowrap">
                             <i class="fa-solid fa-circle-info text-blue-400"></i>
                             <span id="demo-toast-text">Tính năng nằm trong bản đầy đủ!</span>
                         </div>
@@ -235,7 +601,7 @@
                                     <div class="absolute left-0 top-1 w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center text-blue-500 font-black z-10 ring-4 ring-slate-50 text-sm shadow-sm transition-transform group-hover:scale-110">
                                         <i class="fa-solid fa-plane"></i>
                                     </div>
-                                    <div class="bg-white p-4 rounded-2xl border border-slate-100 shadow-sm flex flex-col hover:border-blue-200 hover:shadow-md transition-all cursor-pointer">
+                                    <div class="bg-white p-4 rounded-2xl border border-slate-100 shadow-sm flex flex-col hover:border-blue-200 hover:shadow-md transition-colors cursor-pointer">
                                         <div class="flex justify-between items-start gap-4">
                                             <span class="font-bold text-slate-800 text-sm md:text-base">Hạ cánh tại Suvarnabhumi</span>
                                             <span class="px-2 py-1 bg-slate-100 text-slate-500 rounded-lg text-[10px] font-black whitespace-nowrap">Di chuyển</span>
@@ -265,7 +631,7 @@
                     </div>
 
                     <!-- 5. Modal Thêm Hoạt Động -->
-                    <div id="demo-modal" class="modal-overlay fixed inset-0 bg-slate-900/80 backdrop-blur-sm p-4 flex justify-center items-center z-[8000] opacity-0 pointer-events-none transition-all duration-300">
+                    <div id="demo-modal" class="modal-overlay fixed inset-0 bg-slate-900/80 backdrop-blur-sm p-4 flex justify-center items-center z-[8000] opacity-0 pointer-events-none transition-colors duration-300">
                         
                         <div class="modal-content bg-slate-100 rounded-2xl md:rounded-3xl w-full max-w-lg mx-auto shadow-2xl flex flex-col transform translate-y-10 transition-transform duration-300 overflow-hidden relative" id="demo-modal-content">
                             
@@ -307,7 +673,7 @@
                     </div>
 
                     <!-- 6. Modal Toàn Cảnh Lịch Trình -->
-                    <div id="demo-overview-modal" class="modal-overlay fixed inset-0 bg-slate-900/80 backdrop-blur-sm p-4 flex justify-center items-center z-[8000] opacity-0 pointer-events-none transition-all duration-300">
+                    <div id="demo-overview-modal" class="modal-overlay fixed inset-0 bg-slate-900/80 backdrop-blur-sm p-4 flex justify-center items-center z-[8000] opacity-0 pointer-events-none transition-colors duration-300">
                         <div class="modal-content bg-slate-100 rounded-2xl md:rounded-3xl w-full max-w-4xl mx-auto flex flex-col max-h-[85vh] md:max-h-[80vh] shadow-2xl relative overflow-hidden transform translate-y-10 transition-transform duration-300" id="demo-overview-content">
                             
                             <!-- Header -->
@@ -335,7 +701,7 @@
                     </div>
 
                     <!-- 7. Modal Tạo Hàng Loạt -->
-                    <div id="demo-bulk-modal" class="modal-overlay fixed inset-0 bg-slate-900/80 backdrop-blur-sm p-4 flex justify-center items-center z-[8000] opacity-0 pointer-events-none transition-all duration-300">
+                    <div id="demo-bulk-modal" class="modal-overlay fixed inset-0 bg-slate-900/80 backdrop-blur-sm p-4 flex justify-center items-center z-[8000] opacity-0 pointer-events-none transition-colors duration-300">
                         <div class="modal-content bg-slate-100 rounded-2xl md:rounded-3xl w-full max-w-3xl mx-auto flex flex-col max-h-[90vh] shadow-2xl relative overflow-hidden transform translate-y-10 transition-transform duration-300" id="demo-bulk-content">
                             <div class="p-4 md:p-5 border-b border-slate-200 flex justify-between items-center bg-white z-30 sticky top-0">
                                 <h2 class="text-lg font-black text-slate-900"><i class="fa-solid fa-layer-group text-blue-500 mr-2"></i> Tạo nhiều hoạt động</h2>
@@ -355,14 +721,14 @@
                     </div>
 
                     <!-- 8. Popup Đùa (Easter Egg - Đình công) -->
-                    <div id="demo-joke-modal" class="modal-overlay fixed inset-0 bg-slate-900/60 backdrop-blur-sm p-4 flex justify-center items-center z-[9000] opacity-0 pointer-events-none transition-all duration-300">
+                    <div id="demo-joke-modal" class="modal-overlay fixed inset-0 bg-slate-900/60 backdrop-blur-sm p-4 flex justify-center items-center z-[9000] opacity-0 pointer-events-none transition-colors duration-300">
                         <div class="bg-white rounded-[2rem] p-6 md:p-8 max-w-sm w-full text-center shadow-2xl transform scale-90 transition-transform duration-300 border border-slate-100" id="demo-joke-content">
                             <div class="text-6xl mb-4 animate-bounce">🙈</div>
                             <h3 class="text-xl font-black text-slate-800 mb-2">Oops! </h3>
                             <p class="text-sm font-medium text-slate-500 mb-6 leading-relaxed">
                                 Tạo 3 hoạt động là đủ mệt rồi bạn ơi! Để trải nghiệm tạo không giới hạn, hãy nhấp vào link nhé 
                             </p>
-                            <a href="https://duyanh-dev.github.io/schedule-planing/" target="_blank" class="w-full block py-3.5 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-black rounded-xl shadow-lg hover:shadow-blue-500/30 transition-all active:scale-95">
+                            <a href="https://duyanh-dev.github.io/schedule-planing/" target="_blank" class="w-full block py-3.5 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-black rounded-xl shadow-lg hover:shadow-blue-500/30 transition-colors active:scale-95">
                                 <i class="fa-solid fa-plane-departure mr-1"></i>bắt đầu ngay
                             </a>
                             <button onclick="closeJokeModal()" class="w-full mt-3 py-3 text-slate-400 font-bold hover:text-slate-600 transition-colors">Để khi khác</button>
@@ -383,13 +749,13 @@
         
         <!-- Social/Repo Links -->
         <div class="flex gap-4 mb-6">
-            <a href="https://github.com/duyanh-dev" target="_blank" class="w-10 h-10 rounded-full bg-white border border-slate-200 flex items-center justify-center text-slate-600 hover:text-slate-900 hover:border-slate-300 hover:shadow-sm transition-all">
+            <a href="https://github.com/duyanh-dev" target="_blank" class="w-10 h-10 rounded-full bg-white border border-slate-200 flex items-center justify-center text-slate-600 hover:text-slate-900 hover:border-slate-300 hover:shadow-sm transition-colors">
                 <i class="fa-brands fa-github text-lg"></i>
             </a>
-            <a href="https://github.com/duyanh-dev/schedule-planing" target="_blank" class="w-10 h-10 rounded-full bg-white border border-slate-200 flex items-center justify-center text-slate-600 hover:text-slate-900 hover:border-slate-300 hover:shadow-sm transition-all" title="Repository">
+            <a href="https://github.com/duyanh-dev/schedule-planing" target="_blank" class="w-10 h-10 rounded-full bg-white border border-slate-200 flex items-center justify-center text-slate-600 hover:text-slate-900 hover:border-slate-300 hover:shadow-sm transition-colors" title="Repository">
                 <i class="fa-solid fa-code-branch text-lg"></i>
             </a>
-            <a href="mailto:buiduyanh.17042001@gmail.com" class="w-10 h-10 rounded-full bg-white border border-slate-200 flex items-center justify-center text-slate-600 hover:text-slate-900 hover:border-slate-300 hover:shadow-sm transition-all">
+            <a href="mailto:buiduyanh.17042001@gmail.com" class="w-10 h-10 rounded-full bg-white border border-slate-200 flex items-center justify-center text-slate-600 hover:text-slate-900 hover:border-slate-300 hover:shadow-sm transition-colors">
                 <i class="fa-solid fa-envelope text-lg"></i>
             </a>
         </div>

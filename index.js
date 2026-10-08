@@ -8,6 +8,14 @@ AOS.init({
 // ==========================================
 const dict = {
   vi: {
+    hero_title_1: "Lên lịch chuyến đi.",
+hero_title_2: "Quên Excel đi.",
+hero_subtitle:
+  "TripPlanner gom cả chuyến đi vào một dòng thời gian rõ ràng: giờ giấc, lộ trình, chi phí và hành trang. Không còn bảng tính chằng chịt, mở lên là biết hôm nay đi đâu, làm gì, tiêu bao nhiêu.",
+hero_cta1: "Trải nghiệm ngay",
+hero_cta2: "Tìm hiểu thêm",
+hero_cta3: "Mã nguồn",
+card_flight: "Chuyến bay",
     nav_story: "Câu chuyện",
     nav_features: "Tính năng",
     nav_demo: "Trải nghiệm",
@@ -47,8 +55,19 @@ const dict = {
     demo_form_time: "Từ giờ",
     demo_form_type: "Phân loại",
     hero_cta3: "Mã nguồn",
+    feat4_title: "Sao lưu & Phục hồi",
+    feat4_desc: "Tính năng Import/Export giúp lưu trữ toàn bộ dữ liệu chuyến đi an toàn hoặc dễ dàng chia sẻ cho bạn bè chỉ với 1 cú click.",
+    
   },
   en: {
+    hero_title_1: "Plan every trip.",
+hero_title_2: "Forget Excel.",
+hero_subtitle:
+  "TripPlanner puts your whole trip on one clear timeline: schedule, route, budget and packing list. No more tangled spreadsheets. Open it and see where you're going today, and what it costs.",
+hero_cta1: "Try it now",
+hero_cta2: "Learn more",
+hero_cta3: "Source code",
+card_flight: "Flight",
     nav_story: "Our Story",
     nav_features: "Features",
     nav_demo: "Try Demo",
@@ -88,6 +107,8 @@ const dict = {
     demo_form_time: "Start Time",
     demo_form_type: "Category",
     hero_cta3: "Source Code",
+    feat4_title: "Import & Export",
+    feat4_desc: "Safely backup all your trip data or seamlessly share your entire itinerary with friends in just one click.",
   },
 };
 
@@ -447,3 +468,227 @@ if (daysSlider) {
     daysSlider.scrollLeft = scrollLeftDays - walk;
   });
 }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            // 1. Text Reveal (Cắt chữ từ dưới lên)
+            gsap.from(".hero-text-line", {
+                y: "110%", 
+                opacity: 0,
+                duration: 1.2,
+                stagger: 0.2,
+                ease: "power4.out",
+                delay: 0.1
+            });
+
+            gsap.from(".hero-reveal", {
+                y: 30, opacity: 0, duration: 1, stagger: 0.15, ease: "power3.out", delay: 0.6
+            });
+
+            // 2. Parallax lơ lửng cho Card & Clouds (Chỉ áp dụng Desktop)
+            if (window.innerWidth > 1024) {
+                // Thẻ kính nổi bồng bềnh
+                gsap.to(".parallax-card", {
+                    y: "-=25",
+                    rotationX: "+=3",
+                    rotationY: "-=3",
+                    duration: 4,
+                    yoyo: true,
+                    repeat: -1,
+                    ease: "sine.inOut"
+                });
+
+                // Mây lơ lửng với nhịp điệu khác nhau
+                document.querySelectorAll(".parallax-cloud").forEach((cloud, index) => {
+                    gsap.to(cloud, {
+                        y: index % 2 === 0 ? "-=15" : "+=15",
+                        x: index % 2 === 0 ? "+=10" : "-=10",
+                        duration: 3 + (index * 0.5),
+                        yoyo: true,
+                        repeat: -1,
+                        ease: "sine.inOut",
+                        delay: index * 0.2
+                    });
+                });
+            }
+        });
+        
+
+// ===== Card 3D: lát cạnh + kéo xoay =====
+// ===== Card 3D: lát cạnh + kéo xoay + tạm dừng hoạt ảnh khi ngoài màn hình =====
+(() => {
+    // 1. Lát cạnh tạo độ dày
+    document.querySelectorAll('.slab').forEach(slab => {
+        const depth = parseFloat(slab.dataset.depth) || 10;
+        const hue = slab.dataset.hue || 210;
+        const step = 3, n = Math.max(2, Math.round(depth / step));
+        const frag = document.createDocumentFragment();
+        for (let i = n; i >= 1; i--) {
+            const edge = document.createElement('div');
+            edge.className = 'slab-edge';
+            edge.style.transform = `translateZ(${-i * step}px)`;
+edge.style.background = `rgba(255,255,255,${0.16 - (i / n) * 0.08})`;
+            frag.appendChild(edge);
+        }
+        slab.prepend(frag);
+    });
+
+    // 2. Kéo xoay
+    const scene = document.getElementById('tilt-scene');
+    if (!scene) return;
+
+    const card = scene.closest('.parallax-card');
+    const box = document.getElementById('hero-card-box');
+    const REST = { rx: 14, ry: -18, rz: 6 };
+    const SPRING_BACK = true, SENS = 0.45, LIMIT_X = 60, LIMIT_Y = 75;
+
+    let rx = REST.rx, ry = REST.ry, vrx = 0, vry = 0;
+    let dragging = false, lastX = 0, lastY = 0, raf = 0, pending = false;
+
+    const clamp = (v, m) => Math.max(-m, Math.min(m, v));
+
+    const apply = () => {
+    scene.style.transform =
+        `perspective(1400px) rotateX(${rx.toFixed(2)}deg) rotateY(${ry.toFixed(2)}deg) rotateZ(${REST.rz}deg)`;
+    // Vệt sáng trượt theo góc nghiêng, lệch so với góc nghỉ
+    scene.style.setProperty('--gx', ((ry - REST.ry) / 40).toFixed(3));
+    scene.style.setProperty('--gy', ((rx - REST.rx) / 40).toFixed(3));
+};
+
+    const reset = () => {
+        cancelAnimationFrame(raf);
+        rx = REST.rx; ry = REST.ry; vrx = vry = 0;
+        scene.classList.remove('dragging');
+        apply();
+    };
+
+    const loop = () => {
+        if (SPRING_BACK) { vrx += (REST.rx - rx) * 0.06; vry += (REST.ry - ry) * 0.06; }
+        const f = SPRING_BACK ? 0.86 : 0.92;
+        vrx *= f; vry *= f;
+        rx = clamp(rx + vrx, LIMIT_X); ry = clamp(ry + vry, LIMIT_Y);
+        apply();
+        const settled = Math.abs(vrx) < 0.01 && Math.abs(vry) < 0.01 &&
+            (!SPRING_BACK || (Math.abs(REST.rx - rx) < 0.05 && Math.abs(REST.ry - ry) < 0.05));
+        if (settled) scene.classList.remove('dragging');
+        else raf = requestAnimationFrame(loop);
+    };
+
+    scene.addEventListener('pointerdown', e => {
+        dragging = true; cancelAnimationFrame(raf); vrx = vry = 0;
+        lastX = e.clientX; lastY = e.clientY;
+        scene.setPointerCapture(e.pointerId);
+        scene.classList.add('dragging');
+    });
+
+    scene.addEventListener('pointermove', e => {
+        if (!dragging) return;
+        vry = (e.clientX - lastX) * SENS; vrx = -(e.clientY - lastY) * SENS;
+        lastX = e.clientX; lastY = e.clientY;
+        ry = clamp(ry + vry, LIMIT_Y); rx = clamp(rx + vrx, LIMIT_X);
+        if (!pending) {
+            pending = true;
+            requestAnimationFrame(() => { pending = false; apply(); });
+        }
+    });
+
+    const release = e => {
+        if (!dragging) return;
+        dragging = false;
+        if (scene.hasPointerCapture?.(e.pointerId)) scene.releasePointerCapture(e.pointerId);
+        raf = requestAnimationFrame(loop);
+    };
+    scene.addEventListener('pointerup', release);
+    scene.addEventListener('pointercancel', release);
+    scene.addEventListener('dblclick', reset);
+
+    // 3. Resize: xóa transform parallax cũ và về góc nghỉ
+    let rt;
+    window.addEventListener('resize', () => {
+        clearTimeout(rt);
+        rt = setTimeout(() => {
+            if (card) card.style.transform = '';
+            reset();
+        }, 150);
+    });
+
+    // 4. Tạm dừng hoạt ảnh trang trí khi card ra khỏi màn hình (đỡ tốn CPU/GPU)
+    if (box && 'IntersectionObserver' in window) {
+        new IntersectionObserver(([entry]) => {
+            box.classList.toggle('is-paused', !entry.isIntersecting);
+        }, { threshold: 0.05 }).observe(box);
+    }
+
+    apply();
+})();
+
+// Thanh so sánh Trước / Sau
+(() => {
+    const wrap = document.getElementById('cmp-wrap');
+    const cmp = document.getElementById('cmp');
+    if (!cmp || !wrap) return;
+
+    let p = 50, dragging = false, touched = false, raf = 0;
+
+    const set = v => {
+        p = Math.max(5, Math.min(95, v));
+        cmp.style.setProperty('--p', p + '%');
+        cmp.setAttribute('aria-valuenow', Math.round(p));
+    };
+    const pos = e => {
+        const r = cmp.getBoundingClientRect();
+        return (e.clientX - r.left) / r.width * 100;
+    };
+    const stopIntro = () => { touched = true; cancelAnimationFrame(raf); cmp.classList.add('touched'); };
+
+    cmp.addEventListener('pointerdown', e => {
+        stopIntro(); dragging = true;
+        cmp.setPointerCapture(e.pointerId);
+        cmp.classList.add('is-drag');
+        set(pos(e));
+    });
+    cmp.addEventListener('pointermove', e => { if (dragging) set(pos(e)); });
+    const end = () => { dragging = false; cmp.classList.remove('is-drag'); };
+    cmp.addEventListener('pointerup', end);
+    cmp.addEventListener('pointercancel', end);
+    cmp.addEventListener('keydown', e => {
+        if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
+        stopIntro(); set(p + (e.key === 'ArrowLeft' ? -6 : 6)); e.preventDefault();
+    });
+
+    // Tự quét một lần khi cuộn tới để gợi ý là kéo được
+    const intro = () => {
+        if (touched || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        const keys = [50, 82, 18, 50], seg = 800, t0 = performance.now();
+        const ease = t => t < .5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
+        const tick = now => {
+            if (touched) return;
+            const el = now - t0;
+            const i = Math.min(Math.floor(el / seg), keys.length - 2);
+            const t = Math.min((el - i * seg) / seg, 1);
+            set(keys[i] + (keys[i + 1] - keys[i]) * ease(t));
+            if (el < seg * (keys.length - 1)) raf = requestAnimationFrame(tick);
+        };
+        raf = requestAnimationFrame(tick);
+    };
+
+    if ('IntersectionObserver' in window) {
+        let done = false;
+        new IntersectionObserver(([en]) => {
+            wrap.classList.toggle('is-paused', !en.isIntersecting);   // dừng chip nổi khi ngoài màn hình
+            if (en.isIntersecting && !done) { done = true; setTimeout(intro, 500); }
+        }, { threshold: .45 }).observe(wrap);
+    } else intro();
+
+    set(50);
+})();
+
+(() => {
+    if (!matchMedia('(pointer: fine)').matches) return;
+    document.querySelectorAll('.fx-card').forEach(card => {
+        card.addEventListener('pointermove', e => {
+            const r = card.getBoundingClientRect();
+            card.style.setProperty('--mx', (e.clientX - r.left) + 'px');
+            card.style.setProperty('--my', (e.clientY - r.top) + 'px');
+        });
+    });
+})();
