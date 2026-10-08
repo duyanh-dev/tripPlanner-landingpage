@@ -807,13 +807,13 @@ html{  overflow-x: hidden;
 .tp-glass {
   position: relative;
   isolation: isolate;
-  background: rgba(51, 65, 85, 0.16);
+  background: rgba(51, 65, 85, 0.26);               /* đậm hơn để tách khỏi nền */
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.7),
     inset 0 -1px 0 rgba(15, 23, 42, 0.08),
     inset 0 0 18px rgba(255, 255, 255, 0.1),
-    0 12px 32px rgba(15, 23, 42, 0.16),
-    0 1px 3px rgba(15, 23, 42, 0.12);
+    0 12px 32px rgba(15, 23, 42, 0.2),
+    0 1px 3px rgba(15, 23, 42, 0.14);
   transition: background .35s ease, box-shadow .35s ease, padding .35s ease,
               width .45s cubic-bezier(.2, .8, .2, 1);
 }
@@ -823,14 +823,15 @@ html{  overflow-x: hidden;
   inset: 0;
   z-index: -2;
   border-radius: inherit;
-  -webkit-backdrop-filter: blur(14px) saturate(1.5) brightness(0.93);
-  backdrop-filter: blur(14px) saturate(1.5) brightness(0.93);
+  -webkit-backdrop-filter: blur(24px) saturate(1.7) brightness(0.9);
+  backdrop-filter: blur(24px) saturate(1.7) brightness(0.9);
 }
 @supports (backdrop-filter: url(#tp-refract)) {
   .tp-glass::before {
-    backdrop-filter: blur(6px) url(#tp-refract) saturate(1.5) brightness(0.93);
+    backdrop-filter: blur(14px) url(#tp-refract) saturate(1.7) brightness(0.9);
   }
 }
+
 .tp-glass::after {
   content: "";
   position: absolute;
@@ -864,7 +865,7 @@ html{  overflow-x: hidden;
   width: min(860px, 100%);
   padding-top: 6px;
   padding-bottom: 6px;
-  background: rgba(51, 65, 85, 0.22);
+  background: rgba(51, 65, 85, 0.32);
 }
 
 /* ================= Logo ================= */
@@ -1026,12 +1027,27 @@ html{  overflow-x: hidden;
   gap: 2px;
   padding: 10px;
   border-radius: 28px;
-  opacity: 0;
-  transform: translateY(-8px) scale(.98);
   transform-origin: top center;
+  will-change: transform;
+
+  /* trạng thái ĐÓNG: xẹp lên trên, nhanh và dứt khoát */
+  transform: translateY(-14px) scale(.94, .5);
+  opacity: 1;
   visibility: hidden;
-  transition: opacity .3s ease, transform .35s cubic-bezier(.2, .8, .2, 1), visibility .3s;
+  transition:
+    transform .26s cubic-bezier(.5, 0, .75, 0),
+    opacity .08s ease .18s,          /* chỉ mờ ở 80ms cuối */
+    visibility 0s .26s;
 }
+.tp-mobile.is-open {
+  transform: none;
+  opacity: 1;
+  visibility: visible;
+  transition:
+    transform .35s cubic-bezier(.2, .8, .2, 1),
+    visibility 0s;
+}
+
 .tp-mobile a {
   padding: 14px 18px;
   font-weight: 600;
@@ -1039,8 +1055,16 @@ html{  overflow-x: hidden;
   color: var(--tp-text-strong);
   text-decoration: none;
   border-radius: 18px;
-  transition: background .2s ease;
+  opacity: 0;
+  transition: opacity .1s ease, background .2s ease;   /* đóng: chỉ mờ, không trượt */
 }
+.tp-mobile.is-open a {
+  opacity: 1;
+  transition: opacity .25s ease, background .2s ease;
+}
+.tp-mobile.is-open a:nth-child(1) { transition-delay: .05s; }
+.tp-mobile.is-open a:nth-child(2) { transition-delay: .09s; }
+.tp-mobile.is-open a:nth-child(3) { transition-delay: .13s; }
 .tp-mobile a:hover,
 .tp-mobile a:active { background: rgba(255, 255, 255, 0.55); }
 
@@ -1068,14 +1092,16 @@ html{  overflow-x: hidden;
   .tp-links  { display: none; }
   .tp-burger { display: block; }
   .tp-mobile { display: flex; }
-  .tp-mobile.is-open { opacity: 1; transform: none; visibility: visible; }
-  .tp-drop   { display: grid; }
 
-  /* bỏ bộ lọc khúc xạ SVG trên mobile cho nhẹ, chỉ giữ blur thường */
+  .tp-drop   { display: none; }
+
   .tp-glass::before {
-    -webkit-backdrop-filter: blur(14px) saturate(1.5) brightness(0.93);
-    backdrop-filter: blur(14px) saturate(1.5) brightness(0.93);
+    -webkit-backdrop-filter: blur(24px) saturate(1.7) brightness(0.9);
+    backdrop-filter: blur(24px) saturate(1.7) brightness(0.9);
   }
+
+  .tp-brand:hover .tp-brand-icon { transform: none; }
+  .tp-brand-icon { transition: none; }
 
   .tp-nav,
   .tp-header.is-scrolled .tp-nav {
@@ -1083,55 +1109,48 @@ html{  overflow-x: hidden;
     height: 56px;
     padding: 0 9px 0 12px;
     border-radius: 28px;
-    transform-origin: 50% 50%;
-    will-change: transform, opacity;
-    backface-visibility: hidden;
+    overflow: hidden;
+    will-change: width, transform, opacity;
   }
+  .tp-brand, .tp-actions { white-space: nowrap; }
 
-  /* ---------- HIỆN RA (nav bung ra kiểu lò xo sau khi giọt chạm đáy) ---------- */
+  /* ---------- HIỆN: viên tròn bung ra thành thanh ---------- */
   .tp-nav {
     transition:
-      transform .8s cubic-bezier(.3, 1.5, .5, 1) .36s,
-      opacity .25s ease .36s,
+      width .6s cubic-bezier(.3, 1.12, .5, 1),
+      transform .5s cubic-bezier(.22, 1, .36, 1),
+      opacity .15s ease,
       background .35s ease,
       box-shadow .35s ease;
   }
   .tp-nav > .tp-brand,
   .tp-nav > .tp-actions {
-    transition: opacity .35s ease .62s, transform .5s cubic-bezier(.3, 1.4, .5, 1) .62s;
+    transition: opacity .25s ease .22s;
   }
 
-  /* ---------- BIẾN MẤT (nav bóp lại, nội dung mờ trước) ---------- */
+  /* ---------- ẨN: co thành viên tròn rồi bay lên, tan ---------- */
   .tp-header.is-hidden .tp-nav,
   .tp-header.is-hidden.is-scrolled .tp-nav {
+    width: 56px;
     opacity: 0;
-    transform: scale(.22, .7);
+    transform: translateY(-18px) scale(.8);
     pointer-events: none;
     transition:
-      transform .36s cubic-bezier(.5, 0, .75, 0),
-      opacity .2s ease .1s,
+      width .3s cubic-bezier(.65, 0, .35, 1),
+      transform .3s cubic-bezier(.5, 0, .75, 0) .1s,
+      opacity .18s ease .16s,
       background .35s ease,
       box-shadow .35s ease;
   }
   .tp-header.is-hidden .tp-nav > .tp-brand,
   .tp-header.is-hidden .tp-nav > .tp-actions {
     opacity: 0;
-    transform: scale(.85);
-    transition: opacity .14s ease, transform .2s ease;
+    transition: opacity .1s ease;
   }
   .tp-header.is-hidden .tp-mobile {
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity .12s ease, visibility 0s .12s;
-  }
-
-  /* ---------- Giọt nước ---------- */
-  .tp-header.is-hidden .tp-drop {
-    animation: tp-drop-out .72s cubic-bezier(.4, 0, .6, 1) both;
-  }
-  .tp-header.is-revealed .tp-drop {
-    animation: tp-drop-in .95s linear both;
-  }
+  visibility: hidden;
+  transition: none;
+} 
 }
 
 /* nav bóp lại → giọt tròn hiện ra → kéo dài, bay lên và tan */
