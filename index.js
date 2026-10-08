@@ -692,3 +692,129 @@ edge.style.background = `rgba(255,255,255,${0.16 - (i / n) * 0.08})`;
         });
     });
 })();
+
+
+(() => {
+  const header    = document.getElementById('tpHeader');
+  const nav       = header.querySelector('.tp-nav');
+  const links     = document.getElementById('tpLinks');
+  const indicator = document.getElementById('tpIndicator');
+  const burger    = document.getElementById('tpBurger');
+  const mobile    = document.getElementById('tpMobile');
+  const langBtn   = document.getElementById('lang-toggle');
+  const anchors   = [...links.querySelectorAll('a')];
+  const isMobile  = () => window.matchMedia('(max-width: 768px)').matches;
+
+  /* ---------- 1. Thanh trượt theo link ---------- */
+  let activeLink = null;
+
+  const moveTo = (el) => {
+    if (!el) { indicator.style.opacity = 0; return; }
+    indicator.style.width = el.offsetWidth + 'px';
+    indicator.style.transform = `translateX(${el.parentElement.offsetLeft}px)`;
+    indicator.style.opacity = 1;
+  };
+  const rest = () => moveTo(activeLink);
+
+  anchors.forEach(a => {
+    a.addEventListener('mouseenter', () => moveTo(a));
+    a.addEventListener('focus', () => moveTo(a));
+  });
+  links.addEventListener('mouseleave', rest);
+  links.addEventListener('focusout', rest);
+  window.addEventListener('resize', rest);
+  window.addEventListener('load', rest);
+
+  /* ---------- 2. Scrollspy ---------- */
+  const sections = anchors
+    .filter(a => a.getAttribute('href').startsWith('#') && a.getAttribute('href').length > 1)
+    .map(a => ({ a, el: document.querySelector(a.getAttribute('href')) }))
+    .filter(s => s.el);
+
+  const setActive = (a) => {
+    anchors.forEach(x => x.classList.toggle('is-active', x === a));
+    activeLink = a;
+    rest();
+  };
+
+  if (sections.length) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          const hit = sections.find(s => s.el === e.target);
+          if (hit) setActive(hit.a);
+        }
+      });
+    }, { rootMargin: '-45% 0px -50% 0px' });
+    sections.forEach(s => io.observe(s.el));
+  }
+
+  /* ---------- 3. Menu mobile ---------- */
+  const setMenu = (open) => {
+    burger.setAttribute('aria-expanded', open);
+    mobile.classList.toggle('is-open', open);
+  };
+  burger.addEventListener('click', () => setMenu(burger.getAttribute('aria-expanded') !== 'true'));
+  mobile.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setMenu(false)));
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') setMenu(false); });
+  document.addEventListener('click', e => { if (!header.contains(e.target)) setMenu(false); });
+
+  /* ---------- 4. Công tắc ngôn ngữ (không đụng tới toggleLanguage() của bạn) ---------- */
+  langBtn.addEventListener('click', () => {
+    langBtn.dataset.lang = langBtn.dataset.lang === 'vi' ? 'en' : 'vi';
+  });
+
+  /* ---------- 5. Cuộn: thu gọn desktop + giọt nước ẩn/hiện mobile ---------- */
+  let revealTimer = null;
+
+  const setHidden = (hide) => {
+    if (header.classList.contains('is-hidden') === hide) return;
+
+    clearTimeout(revealTimer);
+    header.classList.toggle('is-hidden', hide);
+
+    if (hide) {
+      header.classList.remove('is-revealed');
+      setMenu(false);
+    } else {
+      // chạy animation "giọt rơi" chỉ khi hiện lại sau khi đã ẩn
+      header.classList.add('is-revealed');
+      revealTimer = setTimeout(() => header.classList.remove('is-revealed'), 1000);
+    }
+  };
+
+  let lastY = Math.max(0, window.scrollY);
+  let ticking = false;
+  let lastToggle = 0;
+
+  const update = () => {
+    const y = Math.max(0, window.scrollY);
+    const delta = y - lastY;
+    const now = performance.now();
+
+    header.classList.toggle('is-scrolled', y > 24);
+
+    if (isMobile()) {
+      if (y < 80) {
+        setHidden(false);                         // gần đầu trang: luôn hiện
+      } else if (now - lastToggle > 280) {        // chống đổi trạng thái liên tục gây giật
+        if (delta > 10)       { setHidden(true);  lastToggle = now; }
+        else if (delta < -10) { setHidden(false); lastToggle = now; }
+      }
+    } else {
+      header.classList.remove('is-hidden', 'is-revealed');
+    }
+
+    if (Math.abs(delta) > 10) lastY = y;
+    ticking = false;
+  };
+
+  const onScrollFrame = () => {
+    if (!ticking) { ticking = true; requestAnimationFrame(update); }
+  };
+
+  window.addEventListener('scroll', onScrollFrame, { passive: true });
+  window.addEventListener('resize', onScrollFrame);
+  window.addEventListener('load', update);
+  update();
+})();
